@@ -1,0 +1,47 @@
+<%- include('partials/header') %>
+
+<h1>Available Events</h1>
+
+<form method="GET" action="/">
+  <input type="text" name="search" placeholder="Search events">
+  
+  <select name="category">
+    <option value="">All Categories</option>
+    <option value="conference">Conference</option>
+    <option value="workshop">Workshop</option>
+    <option value="music festival">Concert</option>
+    <option value="private">Private Event</option>
+  </select>
+  
+  <input type="date" name="date">
+  
+  <select name="availability">
+    <option value="">All</option>
+    <option value="available">Available Only</option>
+    <option value="soldout">Sold Out</option>
+  </select>
+  
+  <button type="submit">Filter</button>
+</form>
+
+<div class="events-grid">
+  <% events.forEach(event => { %>
+    <div class="event-card">
+      <h3><%= event.title %></h3>
+      <p>Date: <%= event.date %></p>
+      <p>Category: <%= event.category %></p>
+      <p>Available Tickets: <%= event.availableTickets %> / <%= event.capacity %></p>
+      <a href="/events/<%= event._id %>">View Details</a>
+      
+      <% if (user && user.role === 'user' && event.availableTickets > 0) { %>
+        <form action="/book" method="POST">
+          <input type="hidden" name="eventId" value="<%= event._id %>">
+          <input type="number" name="quantity" min="1" max="<%= event.availableTickets %>" required>
+          <button type="submit">Book Now</button>
+        </form>
+      <% } %>
+    </div>
+  <% }) %>
+</div>
+
+<%- include('partials/footer') %>
