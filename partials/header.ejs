@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="description" content="Smart Event Management and Ticketing Platform">
+  <title>Smart Event Management Platform</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="/">EventMaster</a>
+      </div>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        
+        <% if (!user) { %>
+          <a href="/auth">Login/Register</a>
+        <% } %>
+        
+        <% if (user && user.role === 'admin') { %>
+          <a href="/manage">Manage Events</a>
+          <a href="/dashboard">Analytics</a>
+          <a href="/contact">Enquiries</a>
+        <% } %>
+        
+        <% if (user && user.role === 'user') { %>
+          <a href="/dashboard">My Bookings</a>
+          <a href="/contact">Contact</a>
+        <% } %>
+        
+        <% if (user) { %>
+          <a href="/logout" class="logout-link">Logout (<%= user.name %>)</a>
+        <% } %>
+      </div>
+    </nav>
+  </header>
+  <main>
