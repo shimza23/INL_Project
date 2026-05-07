@@ -1,0 +1,96 @@
+<%- include('partials/header') %>
+
+<h1>Dashboard</h1>
+
+<% if (user && user.role === 'user') { %>
+  <div class="admin-section">
+    <h2>My Booking History</h2>
+    
+    <% if (bookings && bookings.length > 0) { %>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Event Name</th>
+            <th>Event Date</th>
+            <th>Category</th>
+            <th>Tickets Booked</th>
+            <th>Booking Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% bookings.forEach(booking => { %>
+            <tr>
+              <td><%= booking.event.title %></td>
+              <td><%= booking.event.date %></td>
+              <td><%= booking.event.category %></td>
+              <td><%= booking.quantity %></td>
+              <td><%= new Date(booking.createdAt).toLocaleDateString() %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <div class="no-events">
+        <p>You haven't booked any tickets yet.</p>
+        <a href="/">Browse Events →</a>
+      </div>
+    <% } %>
+  </div>
+<% } %>
+
+<% if (user && user.role === 'admin') { %>
+  <div class="admin-section">
+    <h2>Admin Analytics Dashboard</h2>
+    
+    <div class="analytics-grid">
+    
+      <div class="analytics-card">
+        <div class="analytics-icon"></div>
+        <h3>Total Bookings</h3>
+        <p class="analytics-number"><%= analytics.totalBookings %></p>
+      </div>
+      
+      <div class="analytics-card">
+        <div class="analytics-icon"></div>
+        <h3>Capacity Usage</h3>
+        <p class="analytics-number"><%= analytics.capacityPercentage %>%</p>
+      </div>
+      
+      <div class="analytics-card">
+        <div class="analytics-icon"></div>
+        <h3>Total Events</h3>
+        <p class="analytics-number"><%= analytics.totalEvents %></p>
+      </div>
+    </div>
+    
+    <h3>Most Popular Events</h3>
+    <% if (analytics.popularEvents && analytics.popularEvents.length > 0) { %>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Event Name</th>
+            <th>Category</th>
+            <th>Total Bookings</th>
+            <th>Tickets Sold</th>
+            <th>Fill Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% analytics.popularEvents.forEach(event => { %>
+            <tr>
+              <td><%= event.title %></td>
+              <td><%= event.category %></td>
+              <td><%= event.bookingCount %></td>
+              <td><%= event.ticketsSold %></td>
+              <td><%= Math.round((event.ticketsSold / event.capacity) * 100) %>%</td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p class="no-data-message">No booking data available yet.</p>
+    <% } %>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>
