@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartTutor – Login | Belgium Campus iTversity</title>
+  <link rel="stylesheet" href="../css/styles.css"/>
+  <link rel="stylesheet" href="../css/login.css"/>
+</head>
+<body class="login-body">
+
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="logo-icon">🎓</div>
+        <div>
+          <div class="brand-name" style="font-size:18px;font-weight:700;">SmartTutor</div>
+          <div style="font-size:11px;color:var(--gray-400);">Belgium Campus iTversity</div>
+        </div>
+      </div>
+
+      <h1 class="login-title">Welcome back</h1>
+      <p class="login-sub">Sign in to your SmartTutor account to continue</p>
+
+      <div class="role-tabs">
+        <button class="role-tab active" onclick="setRole(this,'student')">Student</button>
+        <button class="role-tab" onclick="setRole(this,'tutor')">Tutor</button>
+        <button class="role-tab" onclick="setRole(this,'admin')">Admin</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Student Number / Email</label>
+        <input class="form-input" type="text" placeholder="e.g. 22012345 or name@belgiumcampus.ac.za"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" type="password" placeholder="Enter your password"/>
+      </div>
+      <div class="login-forgot">
+        <a href="#" class="link-turquoise">Forgot password?</a>
+      </div>
+
+      <button class="btn btn-primary btn-full login-btn" id="loginBtn" onclick="handleLogin()">Sign In</button>
+
+      <p class="login-register">
+        New student? <a href="register.html" class="link-pink">Register here</a>
+      </p>
+
+      <div class="login-demo">
+        <span>Quick demo:</span>
+        <button onclick="goDemo('student-dashboard.html')" class="demo-btn">Student view</button>
+        <button onclick="goDemo('tutor-dashboard.html')" class="demo-btn">Tutor view</button>
+        <button onclick="goDemo('admin-analytics.html')" class="demo-btn">Admin view</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selectedRole = 'student';
+    const destinations = { student: 'student-dashboard.html', tutor: 'tutor-dashboard.html', admin: 'admin-analytics.html' };
+
+    function setRole(btn, role) {
+      document.querySelectorAll('.role-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedRole = role;
+    }
+
+    function handleLogin() {
+      window.location.href = destinations[selectedRole];
+    }
+
+    function goDemo(page) {
+      window.location.href = page;
+    }
+  </script>
+</body>
+</html>

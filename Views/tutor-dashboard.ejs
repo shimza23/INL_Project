@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartTutor – Tutor Dashboard</title>
+  <link rel="stylesheet" href="../css/styles.css"/>
+  <style>
+    .cal-week-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+    .cal-nav { display:flex; align-items:center; gap:8px; }
+    .cal-range { font-size:13px; color:var(--gray-600); font-weight:500; }
+    .cal-row { margin-bottom:4px; }
+    .cal-day-header strong { display:block; font-size:13px; font-weight:600; color:var(--gray-800); }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <div id="sidebar-container"></div>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1>My Schedule</h1>
+        <p>Manage your availability and tutoring sessions</p>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-primary btn-sm">+ Add Availability</button>
+        <a href="profile-settings.html" class="user-avatar" style="text-decoration:none;">SD</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="card" style="margin-bottom:20px;">
+        <div class="cal-week-header">
+          <span class="section-title">This Week's Availability</span>
+          <div class="cal-nav">
+            <button class="icon-btn" style="width:28px;height:28px;font-size:14px;">‹</button>
+            <span class="cal-range">14 Apr – 20 Apr 2025</span>
+            <button class="icon-btn" style="width:28px;height:28px;font-size:14px;">›</button>
+          </div>
+        </div>
+        <div class="cal-header-row">
+          <div></div>
+          <div class="cal-day-header">Mon<strong>14</strong></div>
+          <div class="cal-day-header">Tue<strong>15</strong></div>
+          <div class="cal-day-header">Wed<strong>16</strong></div>
+          <div class="cal-day-header">Thu<strong>17</strong></div>
+          <div class="cal-day-header">Fri<strong>18</strong></div>
+          <div class="cal-day-header">Sat<strong>19</strong></div>
+          <div class="cal-day-header">Sun<strong>20</strong></div>
+        </div>
+        <div class="cal-row">
+          <div class="cal-time">08:00</div>
+          <div class="cal-cell available"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell available"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell available"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+        </div>
+        <div class="cal-row">
+          <div class="cal-time">10:00</div>
+          <div class="cal-cell available"></div>
+          <div class="cal-cell available"></div>
+          <div class="cal-cell booked"><span class="cell-name">Thabo N.</span><span class="cell-sub">DBD371</span></div>
+          <div class="cal-cell available"></div>
+          <div class="cal-cell available"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+        </div>
+        <div class="cal-row">
+          <div class="cal-time">12:00</div>
+          <div class="cal-cell booked"><span class="cell-name">Lerato M.</span><span class="cell-sub">WPR371</span></div>
+          <div class="cal-cell available"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell booked"><span class="cell-name">Sipho K.</span><span class="cell-sub">MLG381</span></div>
+          <div class="cal-cell available"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+        </div>
+        <div class="cal-row">
+          <div class="cal-time">14:00</div>
+          <div class="cal-cell booked"><span class="cell-name">Thabo N.</span><span class="cell-sub">WPR371</span></div>
+          <div class="cal-cell available"></div>
+          <div class="cal-cell available"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell booked"><span class="cell-name">Nomsa D.</span><span class="cell-sub">PRG271</span></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+        </div>
+        <div class="cal-row">
+          <div class="cal-time">16:00</div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell available"></div>
+          <div class="cal-cell available"></div>
+          <div class="cal-cell available"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+        </div>
+        <div class="cal-legend">
+          <div class="legend-item"><div class="legend-box available"></div> Available</div>
+          <div class="legend-item"><div class="legend-box booked"></div> Booked</div>
+          <div class="legend-item"><div class="legend-box unavailable"></div> Unavailable</div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <span class="section-title">Pending Student Requests</span>
+        <a href="student-requests.html" class="link-turquoise">View All</a>
+      </div>
+      <div class="request-grid">
+        <div class="request-card">
+          <div class="request-top">
+            <div class="req-avatar">TN</div>
+            <div>
+              <div class="req-name">Thabo Nkosi</div>
+              <div class="req-time">Requested 1 hour ago · 22018456</div>
+            </div>
+          </div>
+          <div class="req-meta">📚 Web Programming (WPR37(8)1)</div>
+          <div class="req-meta">📅 Tuesday 15 Apr · 10:00</div>
+          <div class="req-meta">⏱ 90 minutes</div>
+          <div class="req-desc">Struggling with Express routing and middleware. Need help understanding async/await in Node.js.</div>
+          <div class="req-actions">
+            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
+            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
+          </div>
+        </div>
+        <div class="request-card">
+          <div class="request-top">
+            <div class="req-avatar">LM</div>
+            <div>
+              <div class="req-name">Lerato Molefe</div>
+              <div class="req-time">Requested 3 hours ago · 22019021</div>
+            </div>
+          </div>
+          <div class="req-meta">📚 Database Design (DBD37(8)1)</div>
+          <div class="req-meta">📅 Thursday 17 Apr · 14:00</div>
+          <div class="req-meta">⏱ 60 minutes</div>
+          <div class="req-desc">Need help with MongoDB aggregation pipelines for the group project. Assessment due next week.</div>
+          <div class="req-actions">
+            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
+            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
+          </div>
+        </div>
+        <div class="request-card">
+          <div class="request-top">
+            <div class="req-avatar">NK</div>
+            <div>
+              <div class="req-name">Nomsa Khoza</div>
+              <div class="req-time">Requested 1 day ago · 22020134</div>
+            </div>
+          </div>
+          <div class="req-meta">📚 Programming (PRG271)</div>
+          <div class="req-meta">📅 Friday 18 Apr · 09:00</div>
+          <div class="req-meta">⏱ 60 minutes</div>
+          <div class="req-desc">C# OOP concepts – inheritance and polymorphism. Struggling with the practical assignment tasks.</div>
+          <div class="req-actions">
+            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
+            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../js/nav.js"></script>
+<script>
+  document.getElementById('sidebar-container').innerHTML =
+    buildSidebar('tutor', 'Sipho Dlamini', 'Tutor · WPR, DBD', 'tutor-dashboard.html');
+</script>
+</body>
+</html>

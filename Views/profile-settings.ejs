@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartTutor – Profile Settings</title>
+  <link rel="stylesheet" href="../css/styles.css"/>
+</head>
+<body>
+<div class="layout">
+  <div id="sidebar-container"></div>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1>Profile Settings</h1>
+        <p>Manage your profile and weekly availability</p>
+      </div>
+      <div class="topbar-right">
+        <a href="#" class="user-avatar" style="text-decoration:none;">SD</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="profile-layout">
+        <!-- Left card -->
+        <div class="profile-sidebar-card">
+          <div class="profile-avatar">SD</div>
+          <div class="profile-name">Sipho Dlamini</div>
+          <div class="profile-role">Senior Tutor · Belgium Campus</div>
+          <div class="tag-list">
+            <span class="badge badge-pink">WPR37(8)1</span>
+            <span class="badge badge-pink">DBD37(8)1</span>
+            <span class="badge badge-pink">PRG271</span>
+          </div>
+          <div class="profile-stats">
+            <div>
+              <div class="pstat-val">184</div>
+              <div class="pstat-label">Sessions</div>
+            </div>
+            <div>
+              <div class="pstat-val">4.9</div>
+              <div class="pstat-label">Rating</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right form -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="card">
+            <h3 style="font-size:15px;font-weight:600;margin-bottom:16px;">Personal Information</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">First Name</label>
+                <input class="form-input" type="text" value="Sipho"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input class="form-input" type="text" value="Dlamini"/>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input class="form-input" type="email" value="sipho.dlamini@belgiumcampus.ac.za"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input class="form-input" type="tel" value="+27 71 234 5678"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Modules I Tutor</label>
+              <div class="chip-input">
+                <span class="chip">WPR37(8)1 <span class="chip-remove">×</span></span>
+                <span class="chip">DBD37(8)1 <span class="chip-remove">×</span></span>
+                <span class="chip">PRG271 <span class="chip-remove">×</span></span>
+                <span class="chip-add">+ Add Module</span>
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Bio</label>
+              <textarea class="form-input">3rd year IT student at Belgium Campus iTversity specialising in web development and databases. I enjoy breaking down complex JavaScript and MongoDB concepts into easy-to-understand practical examples.</textarea>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size:15px;font-weight:600;margin-bottom:14px;">Weekly Availability</h3>
+            <div class="avail-header-row">
+              <div></div>
+              <div class="avail-day-label">Mon</div>
+              <div class="avail-day-label">Tue</div>
+              <div class="avail-day-label">Wed</div>
+              <div class="avail-day-label">Thu</div>
+              <div class="avail-day-label">Fri</div>
+              <div class="avail-day-label">Sat</div>
+              <div class="avail-day-label">Sun</div>
+            </div>
+            <div class="avail-row">
+              <div class="avail-time-label">Morning</div>
+              <div class="avail-toggle on" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle on" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle on" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle on" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="avail-row">
+              <div class="avail-time-label">Afternoon</div>
+              <div class="avail-toggle on" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle on" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle on" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle on" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle on" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="avail-row">
+              <div class="avail-time-label">Evening</div>
+              <div class="avail-toggle" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle on" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle on" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle" onclick="this.classList.toggle('on')"></div>
+              <div class="avail-toggle" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="avail-legend">
+              <div class="legend-item"><div style="width:13px;height:13px;border-radius:3px;background:var(--turquoise);"></div> Available</div>
+              <div class="legend-item"><div style="width:13px;height:13px;border-radius:3px;border:1.5px solid var(--gray-200);background:var(--white);"></div> Unavailable</div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-ghost">Cancel</button>
+              <button class="btn btn-primary">✓ Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../js/nav.js"></script>
+<script>
+  document.getElementById('sidebar-container').innerHTML =
+    buildSidebar('tutor', 'Sipho Dlamini', 'Tutor · WPR, DBD', 'profile-settings.html');
+</script>
+</body>
+</html>

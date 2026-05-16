@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartTutor – Student Dashboard</title>
+  <link rel="stylesheet" href="../css/styles.css"/>
+</head>
+<body>
+<div class="layout">
+  <div id="sidebar-container"></div>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1>Good morning, Thabo! 👋</h1>
+        <p>Ready for your studies today? You have 2 sessions this week.</p>
+      </div>
+      <div class="topbar-right">
+        <a href="notifications.html" class="icon-btn">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="notif-dot"></span>
+        </a>
+        <a href="profile-settings.html" class="user-avatar" style="text-decoration:none;">TN</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div>
+            <div class="stat-label">Total Sessions</div>
+            <div class="stat-value">18</div>
+            <div class="stat-sub">↑ +3 this month</div>
+          </div>
+          <div class="stat-icon">📚</div>
+        </div>
+        <div class="stat-card">
+          <div>
+            <div class="stat-label">Upcoming Sessions</div>
+            <div class="stat-value">2</div>
+            <div class="stat-sub">📅 This week</div>
+          </div>
+          <div class="stat-icon">📅</div>
+        </div>
+        <div class="stat-card">
+          <div>
+            <div class="stat-label">Hours Studied</div>
+            <div class="stat-value">27</div>
+            <div class="stat-sub">🏆 Goal: 40 hrs</div>
+          </div>
+          <div class="stat-icon">📈</div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <span class="section-title">Upcoming Bookings</span>
+        <a href="my-bookings.html" class="link-turquoise">View All</a>
+      </div>
+      <div class="booking-list">
+        <div class="booking-item">
+          <div class="booking-info">
+            <h4>Web Programming (WPR371) with Sipho Dlamini</h4>
+            <div class="booking-meta">
+              <span>📅 Monday, 14 April · 14:00–15:30</span>
+              <span>💻 Online (MS Teams)</span>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="location.href='my-bookings.html'">View</button>
+        </div>
+        <div class="booking-item">
+          <div class="booking-info">
+            <h4>Database Design (DBD371) with Naledi Khumalo</h4>
+            <div class="booking-meta">
+              <span>📅 Wednesday, 16 April · 09:00–10:30</span>
+              <span>📍 Lab 3, Building B</span>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="location.href='my-bookings.html'">View</button>
+        </div>
+        <div class="booking-item">
+          <div class="booking-info">
+            <h4>Machine Learning (MLG381) with Dr. Ayanda Zulu</h4>
+            <div class="booking-meta">
+              <span>📅 Friday, 18 April · 11:00–12:00</span>
+              <span>💻 Online (MS Teams)</span>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="location.href='my-bookings.html'">View</button>
+        </div>
+        <div class="booking-item">
+          <div class="booking-info">
+            <h4>Project Management (PMM381) with Zanele Mokoena</h4>
+            <div class="booking-meta">
+              <span>📅 Friday, 18 April · 14:00–15:00</span>
+              <span>📍 Boardroom 2, Admin Block</span>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="location.href='my-bookings.html'">View</button>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:18px;">
+        <a href="my-bookings.html" class="link-turquoise">Load more bookings</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../js/nav.js"></script>
+<script>
+  document.getElementById('sidebar-container').innerHTML =
+    buildSidebar('student', 'Thabo Nkosi', '3rd Year · IT', 'student-dashboard.html');
+</script>
+</body>
+</html>

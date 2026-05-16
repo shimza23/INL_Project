@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartTutor – Admin Analytics</title>
+  <link rel="stylesheet" href="../css/styles.css"/>
+</head>
+<body>
+<div class="layout">
+  <div id="sidebar-container"></div>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1>Analytics Dashboard</h1>
+        <p>Belgium Campus iTversity SmartTutor Platform – Semester 1, 2025</p>
+      </div>
+      <div class="topbar-right">
+        <select class="form-input" style="width:auto;padding:6px 12px;font-size:13px;">
+          <option>Semester 1, 2025</option>
+          <option>Semester 2, 2024</option>
+        </select>
+        <a href="#" class="user-avatar" style="text-decoration:none;">AD</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="stat-cards-4">
+        <div class="stat-card-filled">
+          <div>
+            <div class="stat-label">Total Bookings</div>
+            <div class="stat-value">842</div>
+            <div class="stat-sub">↑ 18% from last semester</div>
+          </div>
+          <div class="stat-icon">📅</div>
+        </div>
+        <div class="stat-card-filled">
+          <div>
+            <div class="stat-label">Active Tutors</div>
+            <div class="stat-value">34</div>
+            <div class="stat-sub">↑ 6 new this semester</div>
+          </div>
+          <div class="stat-icon">👩‍🏫</div>
+        </div>
+        <div class="stat-card-filled">
+          <div>
+            <div class="stat-label">Students Enrolled</div>
+            <div class="stat-value">216</div>
+            <div class="stat-sub">Across all modules</div>
+          </div>
+          <div class="stat-icon">🎓</div>
+        </div>
+        <div class="stat-card-filled">
+          <div>
+            <div class="stat-label">Avg. Satisfaction</div>
+            <div class="stat-value">4.7</div>
+            <div class="stat-sub">↑ 0.3 from last semester</div>
+          </div>
+          <div class="stat-icon">⭐</div>
+        </div>
+      </div>
+
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="chart-title">Most Requested Modules</div>
+          <div class="bar-chart">
+            <div class="bar-row"><span class="bar-label">WPR37(8)1</span><div class="bar-track"><div class="bar-fill" style="width:92%"></div></div><span class="bar-count">78</span></div>
+            <div class="bar-row"><span class="bar-label">DBD37(8)1</span><div class="bar-track"><div class="bar-fill" style="width:80%"></div></div><span class="bar-count">68</span></div>
+            <div class="bar-row"><span class="bar-label">MLG37(8)1</span><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div><span class="bar-count">59</span></div>
+            <div class="bar-row"><span class="bar-label">PRG271</span><div class="bar-track"><div class="bar-fill" style="width:62%"></div></div><span class="bar-count">52</span></div>
+            <div class="bar-row"><span class="bar-label">DAL371</span><div class="bar-track"><div class="bar-fill" style="width:54%"></div></div><span class="bar-count">46</span></div>
+            <div class="bar-row"><span class="bar-label">LPR271</span><div class="bar-track"><div class="bar-fill" style="width:44%"></div></div><span class="bar-count">37</span></div>
+            <div class="bar-row"><span class="bar-label">UAX37(8)1</span><div class="bar-track"><div class="bar-fill" style="width:36%"></div></div><span class="bar-count">30</span></div>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Weekly Booking Trend (April 2025)</div>
+          <div class="line-chart-area">
+            <div class="line-bar" style="height:55%" data-label="Wk 1"></div>
+            <div class="line-bar" style="height:68%" data-label="Wk 2"></div>
+            <div class="line-bar" style="height:82%" data-label="Wk 3"></div>
+            <div class="line-bar" style="height:91%" data-label="Wk 4"></div>
+          </div>
+          <div style="margin-top:18px;">
+            <div class="chart-title" style="margin-bottom:10px;">Peak Booking Hours</div>
+            <div class="bar-chart">
+              <div class="bar-row"><span class="bar-label">08:00–10:00</span><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div></div>
+              <div class="bar-row"><span class="bar-label">10:00–12:00</span><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div></div>
+              <div class="bar-row"><span class="bar-label">12:00–14:00</span><div class="bar-track"><div class="bar-fill" style="width:60%"></div></div></div>
+              <div class="bar-row"><span class="bar-label">14:00–16:00</span><div class="bar-track"><div class="bar-fill" style="width:95%"></div></div></div>
+              <div class="bar-row"><span class="bar-label">16:00–18:00</span><div class="bar-track"><div class="bar-fill" style="width:40%"></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-header" style="margin-bottom:14px;">
+          <span class="section-title">Recent Bookings</span>
+          <button class="btn btn-primary btn-sm">+ Add Booking</button>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Tutor</th>
+              <th>Module</th>
+              <th>Date &amp; Time</th>
+              <th>Type</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="student-cell"><div class="mini-avatar">TN</div>Thabo Nkosi</div></td>
+              <td>Sipho Dlamini</td>
+              <td>WPR37(8)1</td>
+              <td>Mon 14 Apr · 14:00</td>
+              <td>💻 Online</td>
+              <td><span class="badge badge-turquoise">Confirmed</span></td>
+            </tr>
+            <tr>
+              <td><div class="student-cell"><div class="mini-avatar">LM</div>Lerato Molefe</div></td>
+              <td>Naledi Khumalo</td>
+              <td>DBD37(8)1</td>
+              <td>Wed 16 Apr · 09:00</td>
+              <td>📍 On-campus</td>
+              <td><span class="badge badge-turquoise">Confirmed</span></td>
+            </tr>
+            <tr>
+              <td><div class="student-cell"><div class="mini-avatar">NK</div>Nomsa Khoza</div></td>
+              <td>Sipho Dlamini</td>
+              <td>PRG271</td>
+              <td>Fri 18 Apr · 09:00</td>
+              <td>📍 On-campus</td>
+              <td><span class="badge badge-pink">Pending</span></td>
+            </tr>
+            <tr>
+              <td><div class="student-cell"><div class="mini-avatar">KD</div>Kagiso Dube</div></td>
+              <td>Dr. Ayanda Zulu</td>
+              <td>MLG37(8)1</td>
+              <td>Fri 18 Apr · 11:00</td>
+              <td>💻 Online</td>
+              <td><span class="badge badge-pink">Pending</span></td>
+            </tr>
+            <tr>
+              <td><div class="student-cell"><div class="mini-avatar">BS</div>Bongani Sithole</div></td>
+              <td>Lethabo Sithole</td>
+              <td>DAL371</td>
+              <td>Thu 3 Apr · 13:00</td>
+              <td>💻 Online</td>
+              <td><span class="badge badge-gray">Cancelled</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../js/nav.js"></script>
+<script>
+  document.getElementById('sidebar-container').innerHTML =
+    buildSidebar('admin', 'Admin', 'System Administrator', 'admin-analytics.html');
+</script>
+</body>
+</html>

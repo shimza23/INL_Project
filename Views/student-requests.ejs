@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartTutor – Student Requests</title>
+  <link rel="stylesheet" href="../css/styles.css"/>
+  <style>
+    .request-grid-full { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <div id="sidebar-container"></div>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1>Student Requests</h1>
+        <p>6 pending requests awaiting your response</p>
+      </div>
+      <div class="topbar-right">
+        <a href="profile-settings.html" class="user-avatar" style="text-decoration:none;">SD</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="request-grid-full">
+        <div class="request-card">
+          <div class="request-top">
+            <div class="req-avatar">TN</div>
+            <div><div class="req-name">Thabo Nkosi</div><div class="req-time">1 hr ago · 22018456</div></div>
+          </div>
+          <div class="req-meta">📚 Web Programming (WPR37(8)1)</div>
+          <div class="req-meta">📅 Tue 15 Apr · 10:00 · 90 min</div>
+          <div class="req-desc">Express routing and async/await in Node.js – struggling with the backend practical.</div>
+          <div class="req-actions">
+            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
+            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
+          </div>
+        </div>
+        <div class="request-card">
+          <div class="request-top">
+            <div class="req-avatar">LM</div>
+            <div><div class="req-name">Lerato Molefe</div><div class="req-time">3 hrs ago · 22019021</div></div>
+          </div>
+          <div class="req-meta">📚 Database Design (DBD37(8)1)</div>
+          <div class="req-meta">📅 Thu 17 Apr · 14:00 · 60 min</div>
+          <div class="req-desc">MongoDB aggregation pipelines for the group project. Assessment due next week.</div>
+          <div class="req-actions">
+            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
+            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
+          </div>
+        </div>
+        <div class="request-card">
+          <div class="request-top">
+            <div class="req-avatar">NK</div>
+            <div><div class="req-name">Nomsa Khoza</div><div class="req-time">1 day ago · 22020134</div></div>
+          </div>
+          <div class="req-meta">📚 Programming (PRG271)</div>
+          <div class="req-meta">📅 Fri 18 Apr · 09:00 · 60 min</div>
+          <div class="req-desc">C# OOP – inheritance and polymorphism. Struggling with the practical tasks.</div>
+          <div class="req-actions">
+            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
+            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
+          </div>
+        </div>
+        <div class="request-card">
+          <div class="request-top">
+            <div class="req-avatar">KD</div>
+            <div><div class="req-name">Kagiso Dube</div><div class="req-time">2 days ago · 22017899</div></div>
+          </div>
+          <div class="req-meta">📚 Machine Learning (MLG37(8)1)</div>
+          <div class="req-meta">📅 Mon 21 Apr · 11:00 · 90 min</div>
+          <div class="req-desc">Classification models and confusion matrices. Test coming up this Friday.</div>
+          <div class="req-actions">
+            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
+            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
+          </div>
+        </div>
+        <div class="request-card">
+          <div class="request-top">
+            <div class="req-avatar">BS</div>
+            <div><div class="req-name">Bongani Sithole</div><div class="req-time">2 days ago · 22016543</div></div>
+          </div>
+          <div class="req-meta">📚 Data Analytics (DAL371)</div>
+          <div class="req-meta">📅 Tue 22 Apr · 13:00 · 60 min</div>
+          <div class="req-desc">Power BI dashboard creation – confused about DAX measures and calculated columns.</div>
+          <div class="req-actions">
+            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
+            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
+          </div>
+        </div>
+        <div class="request-card">
+          <div class="request-top">
+            <div class="req-avatar">MP</div>
+            <div><div class="req-name">Mpho Pule</div><div class="req-time">3 days ago · 22015678</div></div>
+          </div>
+          <div class="req-meta">📚 UX Design (UAX37(8)1)</div>
+          <div class="req-meta">📅 Wed 23 Apr · 10:00 · 60 min</div>
+          <div class="req-desc">Figma high-fidelity prototype – need help with component design and auto-layout.</div>
+          <div class="req-actions">
+            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
+            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../js/nav.js"></script>
+<script>
+  document.getElementById('sidebar-container').innerHTML =
+    buildSidebar('tutor', 'Sipho Dlamini', 'Tutor · WPR, DBD', 'student-requests.html');
+</script>
+</body>
+</html>
