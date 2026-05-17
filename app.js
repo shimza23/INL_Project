@@ -16,10 +16,15 @@ app.use(express.static('public'));
 
 //set routing
 app.get('/', (req, res) => { res.render('index'); });
+app.get('/admin-analytics', (req, res) => { res.render('admin-analytics'); });
+app.get('/book-session', (req, res) => { res.render('book-session'); });
 app.get('/login', (req, res) => { res.render('login'); });
-app.get('/dashboard', (req, res) => { res.render('dashboard'); }); // fix filename too
-app.get('/manage', (req, res) => { res.render('manage'); });
-app.get('/authentication', (req, res) => { res.render('authentication'); });
+app.get('/my-bookings', (req, res) => { res.render('my-bookings'); });
+app.get("/notifications", (req, res) => { res.render('notifications'); });
+app.get('/profile-settings', (req, res) => { res.render('profile-settings'); });
+app.get("/student-dashboard", (req,res) => {res.render('student-dashboard');});
+app.get("/student-requests", (req,res) => {res.render('student-requests');});
+app.get("/tutor-dashboard", (req,res) => {res.render('tutor-dashboard');});
 
 //set server
 app.listen(port, () => {

@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SmartTutor – Student Dashboard</title>
-  <link rel="stylesheet" href="../css/styles.css"/>
+  <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
 <div class="layout">
@@ -17,11 +17,11 @@
         <p>Ready for your studies today? You have 2 sessions this week.</p>
       </div>
       <div class="topbar-right">
-        <a href="notifications.html" class="icon-btn">
+        <a href="/notifications" class="icon-btn">
           <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           <span class="notif-dot"></span>
         </a>
-        <a href="profile-settings.html" class="user-avatar" style="text-decoration:none;">TN</a>
+        <a href="/profile-settings" class="user-avatar" style="text-decoration:none;">TN</a>
       </div>
     </header>
 
@@ -55,7 +55,7 @@
 
       <div class="section-header">
         <span class="section-title">Upcoming Bookings</span>
-        <a href="my-bookings.html" class="link-turquoise">View All</a>
+        <a href="/my-bookings" class="link-turquoise">View All</a>
       </div>
       <div class="booking-list">
         <div class="booking-item">
@@ -66,7 +66,7 @@
               <span>💻 Online (MS Teams)</span>
             </div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="location.href='my-bookings.html'">View</button>
+          <button class="btn btn-primary btn-sm" onclick="location.href='/my-bookings'">View</button>
         </div>
         <div class="booking-item">
           <div class="booking-info">
@@ -76,7 +76,7 @@
               <span>📍 Lab 3, Building B</span>
             </div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="location.href='my-bookings.html'">View</button>
+          <button class="btn btn-primary btn-sm" onclick="location.href='/my-bookings'">View</button>
         </div>
         <div class="booking-item">
           <div class="booking-info">
@@ -86,7 +86,7 @@
               <span>💻 Online (MS Teams)</span>
             </div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="location.href='my-bookings.html'">View</button>
+          <button class="btn btn-primary btn-sm" onclick="location.href='/my-bookings'">View</button>
         </div>
         <div class="booking-item">
           <div class="booking-info">
@@ -96,20 +96,20 @@
               <span>📍 Boardroom 2, Admin Block</span>
             </div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="location.href='my-bookings.html'">View</button>
+          <button class="btn btn-primary btn-sm" onclick="location.href='/my-bookings'">View</button>
         </div>
       </div>
       <div style="text-align:center;margin-top:18px;">
-        <a href="my-bookings.html" class="link-turquoise">Load more bookings</a>
+        <a href="/my-bookings" class="link-turquoise">Load more bookings</a>
       </div>
     </div>
   </main>
 </div>
 
-<script src="../js/nav.js"></script>
+<script src="/js/nav.js"></script>
 <script>
   document.getElementById('sidebar-container').innerHTML =
-    buildSidebar('student', 'Thabo Nkosi', '3rd Year · IT', 'student-dashboard.html');
+    buildSidebar('student', 'Thabo Nkosi', '3rd Year · IT', '/student-dashboard');
 </script>
 </body>
 </html>

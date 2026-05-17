@@ -1,10 +1,10 @@
-<!DOCTYPE ejs>
-<ejs lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SmartTutor – Belgium Campus iTversity</title>
-  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="/css/styles.css"/>
   <style>
     body { display:flex; align-items:center; justify-content:center; min-height:100vh; background:var(--gray-50); }
     .index-card { background:var(--white); border:1px solid var(--gray-200); border-radius:var(--radius-lg); padding:36px 40px; max-width:500px; width:100%; box-shadow:var(--shadow-md); }
@@ -72,19 +72,19 @@
     <div class="role-section">
       <div class="role-label">👩‍🏫 Tutor Portal</div>
       <div class="page-links">
-        <a href="tutor-dashboard.ejs" class="page-link">
+        <a href="/tutor-dashboard" class="page-link">
           <div class="page-num pink">6</div>
           <div><div class="page-link-name">Tutor Dashboard</div><div class="page-link-desc">Weekly calendar · Pending requests</div></div>
           <span class="arrow">›</span>
         </a>
-        <a href="student-requests.ejs" class="page-link">
+        <a href="/student-requests" class="page-link">
           <div class="page-num pink">7</div>
           <div><div class="page-link-name">Student Requests</div><div class="page-link-desc">Approve or decline booking requests</div></div>
           <span class="arrow">›</span>
         </a>
-        <a href="profile-settings.ejs" class="page-link">
+        <a href="/profile-settings" class="page-link">
           <div class="page-num pink">8</div>
-          <div><div class="page-link-name">Profile &amp; Availability</div><div class="page-link-desc">Modules tutored · Weekly availability grid</div></div>
+          <div><div class="page-link-name">Profile & Availability</div><div class="page-link-desc">Modules tutored · Weekly availability grid</div></div>
           <span class="arrow">›</span>
         </a>
       </div>
@@ -95,7 +95,7 @@
     <div class="role-section" style="margin-bottom:0;">
       <div class="role-label">🔧 Admin Portal</div>
       <div class="page-links">
-        <a href="admin-analytics.ejs" class="page-link">
+        <a href="/admin-analytics" class="page-link">
           <div class="page-num" style="background:var(--gray-100);color:var(--gray-600);">9</div>
           <div><div class="page-link-name">Admin Analytics</div><div class="page-link-desc">Module stats · Charts · Bookings table</div></div>
           <span class="arrow">›</span>
@@ -104,4 +104,4 @@
     </div>
   </div>
 </body>
-</ejs>
+</html>

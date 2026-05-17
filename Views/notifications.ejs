@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SmartTutor – Notifications</title>
-  <link rel="stylesheet" href="../css/styles.css"/>
+  <link rel="stylesheet" href="/css/styles.css"/>
   <style>
     .notif-list { display:flex; flex-direction:column; gap:8px; }
     .notif-item { background:var(--white); border:1px solid var(--gray-200); border-radius:var(--radius); padding:14px 16px; display:flex; align-items:flex-start; gap:12px; cursor:pointer; transition:all 0.15s; }
@@ -30,7 +30,7 @@
       </div>
       <div class="topbar-right">
         <button class="btn btn-ghost btn-sm">Mark all as read</button>
-        <a href="profile-settings.html" class="user-avatar" style="text-decoration:none;">TN</a>
+        <a href="/profile-settings" class="user-avatar" style="text-decoration:none;">TN</a>
       </div>
     </header>
 
@@ -84,10 +84,10 @@
   </main>
 </div>
 
-<script src="../js/nav.js"></script>
+<script src="/js/nav.js"></script>
 <script>
   document.getElementById('sidebar-container').innerHTML =
-    buildSidebar('student', 'Thabo Nkosi', '3rd Year · IT', 'notifications.html');
+    buildSidebar('student', 'Thabo Nkosi', '3rd Year · IT', '/notifications');
 </script>
 </body>
 </html>
