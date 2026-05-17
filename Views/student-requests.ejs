@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SmartTutor – Student Requests</title>
-  <link rel="stylesheet" href="../css/styles.css"/>
+  <link rel="stylesheet" href="/css/styles.css"/>
   <style>
     .request-grid-full { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
   </style>
@@ -20,7 +20,7 @@
         <p>6 pending requests awaiting your response</p>
       </div>
       <div class="topbar-right">
-        <a href="profile-settings.html" class="user-avatar" style="text-decoration:none;">SD</a>
+        <a href="/profile-settings" class="user-avatar" style="text-decoration:none;">SD</a>
       </div>
     </header>
 
@@ -109,10 +109,10 @@
   </main>
 </div>
 
-<script src="../js/nav.js"></script>
+<script src="/js/nav.js"></script>
 <script>
   document.getElementById('sidebar-container').innerHTML =
-    buildSidebar('tutor', 'Sipho Dlamini', 'Tutor · WPR, DBD', 'student-requests.html');
+    buildSidebar('tutor', 'Sipho Dlamini', 'Tutor · WPR, DBD', '/student-requests');
 </script>
 </body>
 </html>

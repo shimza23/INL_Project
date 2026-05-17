@@ -4,8 +4,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SmartTutor – Login | Belgium Campus iTversity</title>
-  <link rel="stylesheet" href="../css/styles.css"/>
-  <link rel="stylesheet" href="../css/login.css"/>
+  <link rel="stylesheet" href="/css/styles.css"/>
+  <link rel="stylesheet" href="/css/login.css"/>
 </head>
 <body class="login-body">
 
@@ -43,21 +43,21 @@
       <button class="btn btn-primary btn-full login-btn" id="loginBtn" onclick="handleLogin()">Sign In</button>
 
       <p class="login-register">
-        New student? <a href="register.html" class="link-pink">Register here</a>
+        New student? <a href="/register" class="link-pink">Register here</a>
       </p>
 
       <div class="login-demo">
         <span>Quick demo:</span>
-        <button onclick="goDemo('student-dashboard.html')" class="demo-btn">Student view</button>
-        <button onclick="goDemo('tutor-dashboard.html')" class="demo-btn">Tutor view</button>
-        <button onclick="goDemo('admin-analytics.html')" class="demo-btn">Admin view</button>
+        <button onclick="goDemo('/student-dashboard')" class="demo-btn">Student view</button>
+        <button onclick="goDemo('/tutor-dashboard')" class="demo-btn">Tutor view</button>
+        <button onclick="goDemo('/admin-analytics')" class="demo-btn">Admin view</button>
       </div>
     </div>
   </div>
 
   <script>
     let selectedRole = 'student';
-    const destinations = { student: 'student-dashboard.html', tutor: 'tutor-dashboard.html', admin: 'admin-analytics.html' };
+    const destinations = { student: '/student-dashboard', tutor: '/tutor-dashboard', admin: '/admin-analytics' };
 
     function setRole(btn, role) {
       document.querySelectorAll('.role-tab').forEach(b => b.classList.remove('active'));

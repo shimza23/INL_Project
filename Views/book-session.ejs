@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SmartTutor – Book a Session</title>
-  <link rel="stylesheet" href="../css/styles.css"/>
+  <link rel="stylesheet" href="/css/styles.css"/>
   <style>
     .book-heading { text-align:center; margin-bottom:24px; }
     .book-heading h2 { font-size:20px; font-weight:600; margin-bottom:4px; }
@@ -23,11 +23,11 @@
         <p>Select a Belgium Campus iTversity module to get started</p>
       </div>
       <div class="topbar-right">
-        <a href="notifications.html" class="icon-btn">
+        <a href="/notifications" class="icon-btn">
           <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           <span class="notif-dot"></span>
         </a>
-        <a href="profile-settings.html" class="user-avatar" style="text-decoration:none;">TN</a>
+        <a href="/profile-settings" class="user-avatar" style="text-decoration:none;">TN</a>
       </div>
     </header>
 
@@ -130,17 +130,17 @@
       </div>
 
       <div class="book-actions">
-        <button class="btn btn-ghost" onclick="location.href='student-dashboard.html'">Back</button>
+        <button class="btn btn-ghost" onclick="location.href='/student-dashboard'">Back</button>
         <button class="btn btn-primary">Next Step →</button>
       </div>
     </div>
   </main>
 </div>
 
-<script src="../js/nav.js"></script>
+<script src="/js/nav.js"></script>
 <script>
   document.getElementById('sidebar-container').innerHTML =
-    buildSidebar('student', 'Thabo Nkosi', '3rd Year · IT', 'book-session.html');
+    buildSidebar('student', 'Thabo Nkosi', '3rd Year · IT', '/book-session');
 
   function selectSubject(el) {
     document.querySelectorAll('.subject-card').forEach(c => c.classList.remove('selected'));

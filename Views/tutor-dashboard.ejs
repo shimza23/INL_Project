@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SmartTutor – Tutor Dashboard</title>
-  <link rel="stylesheet" href="../css/styles.css"/>
+  <link rel="stylesheet" href="/css/styles.css"/>
   <style>
     .cal-week-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
     .cal-nav { display:flex; align-items:center; gap:8px; }
@@ -25,7 +25,7 @@
       </div>
       <div class="topbar-right">
         <button class="btn btn-primary btn-sm">+ Add Availability</button>
-        <a href="profile-settings.html" class="user-avatar" style="text-decoration:none;">SD</a>
+        <a href="/profile-settings" class="user-avatar" style="text-decoration:none;">SD</a>
       </div>
     </header>
 
@@ -108,7 +108,7 @@
 
       <div class="section-header">
         <span class="section-title">Pending Student Requests</span>
-        <a href="student-requests.html" class="link-turquoise">View All</a>
+        <a href="/student-requests" class="link-turquoise">View All</a>
       </div>
       <div class="request-grid">
         <div class="request-card">
@@ -167,10 +167,10 @@
   </main>
 </div>
 
-<script src="../js/nav.js"></script>
+<script src="/js/nav.js"></script>
 <script>
   document.getElementById('sidebar-container').innerHTML =
-    buildSidebar('tutor', 'Sipho Dlamini', 'Tutor · WPR, DBD', 'tutor-dashboard.html');
+    buildSidebar('tutor', 'Sipho Dlamini', 'Tutor · WPR, DBD', '/tutor-dashboard');
 </script>
 </body>
 </html>
