@@ -1,15 +1,14 @@
-require('dotenv').config({quiet: true})
-const mongoose = require("mongoose")
+// 1. Force Node.js to use public DNS Cloudflare: '1.1.1.1' Google DNS: '8.8.8.8'
+const dns = require('dns');
+dns.setServers(['1.1.1.1', '8.8.8.8']); 
 
-const connectDB = async () => {
-  try {
-     //this will change depending on the connection and the database name used later
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("MongoDB Connected");
-  } catch (error) {
-    //simple errror handling to display the error if there is one
-    console.error("Connection failed:", error);
-  }
-};
+// 2. Load environment variables
+require('dotenv').config({ quiet: true });
+const mongoose = require("mongoose");
+
+// 3. Connect to the database
+const connectDB = mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("Connected to MongoDB successfully."))
+  .catch(err => console.error("Mongoose connection error:", err));
 
 module.exports = connectDB;
