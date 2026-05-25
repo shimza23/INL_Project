@@ -4,20 +4,24 @@ const path    = require('path');
 const app     = express();
 const dotenv  = require('dotenv').config({quiet: true});
 const port    = process.env.PORT || 3000;
-const errorMiddleware  = require("./middleware/errorMiddleware");
+const cookieParser     = require("cookie-parser");
 const localsMiddleware = require("./middleware/localsMiddleware");
 const DB = require('./connection');
 
 //Connect DB
 DB.connectDB;
 
-//middleware
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-app.use(errorMiddleware.errorHandler)
-app.use(errorMiddleware.notFound)
+
+//middleware
+app.use(express.json());                            
+app.use(express.urlencoded({ extended: false }));   
+app.use(cookieParser());
+
 app.use(localsMiddleware.setLocals)
+
 
 //set routing
 app.get('/', (req, res) => { res.render('index'); });
