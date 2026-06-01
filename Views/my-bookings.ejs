@@ -6,6 +6,30 @@
   <title>My Bookings | SmartTutor</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/styles.css"/>
+  <style>
+    .booking-list { display: flex; flex-direction: column; gap: 10px; }
+    .booking-item { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .booking-info { flex: 1; }
+    .booking-info h4 { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+    .booking-meta { font-size: 12px; color: var(--gray-400); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .booking-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+    .badge-turquoise { background: var(--turquoise-light); color: var(--turquoise-dark); }
+    .badge-pink { background: var(--pink-light); color: var(--pink-dark); }
+    .badge-gray { background: var(--gray-100); color: var(--gray-600); }
+    .badge-green { background: #D1FAE5; color: #065F46; }
+    .sidebar-user { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .logout-btn { padding: 4px 8px; border-radius: 6px; transition: all 0.15s; text-decoration: none; }
+    .logout-btn:hover { background: var(--gray-100); color: var(--pink) !important; }
+    
+    /* Review Modal Styles */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
+    .modal-content { background: var(--white); max-width: 500px; width: 90%; border-radius: var(--radius-lg); padding: 24px; }
+    .stars { display: flex; gap: 10px; font-size: 32px; margin: 10px 0; }
+    .star { cursor: pointer; color: var(--gray-400); transition: all 0.15s; }
+    .star:hover, .star.active { color: #FBBF24; }
+    .rating-input { display: none; }
+  </style>
 </head>
 <body>
 <div class="layout">
@@ -57,14 +81,24 @@
           <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           Profile
         </a>
+      <% } else { %>
+        <a href="/admin-analytics" class="nav-item">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Analytics
+        </a>
+        <a href="/profile-settings" class="nav-item">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.82 1.18V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-2.82-1.18l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9 1.65 1.65 0 0 0 4.27 7.18l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Settings
+        </a>
       <% } %>
     </nav>
     <div class="sidebar-user">
       <div class="user-avatar"><%= user.name.charAt(0) %><%= user.name.split(' ')[1]?.charAt(0) || '' %></div>
       <div>
         <div class="user-name"><%= user.name %></div>
-        <div class="user-role"><%= user.role === 'student' ? 'Student' : 'Tutor' %></div>
+        <div class="user-role"><%= user.role === 'student' ? 'Student' : user.role === 'tutor' ? 'Tutor' : 'Admin' %></div>
       </div>
+      <a href="/logout" class="logout-btn" style="margin-left: auto; color: var(--gray-400);">🚪 Logout</a>
     </div>
   </aside>
 
@@ -83,6 +117,7 @@
           <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         </a>
         <a href="/profile-settings" class="user-avatar" style="text-decoration:none;"><%= user.name.charAt(0) %><%= user.name.split(' ')[1]?.charAt(0) || '' %></a>
+        <a href="/logout" class="btn btn-ghost btn-sm" style="margin-left: 8px;">Logout</a>
       </div>
     </header>
 
@@ -99,17 +134,22 @@
             </p>
           </div>
         <% } else { %>
-          <% bookings.forEach(booking => { %>
+          <% bookings.forEach(booking => { 
+            // Check if review already exists for this booking
+            const hasReview = booking.reviewGiven || false;
+          %>
             <div class="booking-item">
               <div class="booking-info">
                 <h4><%= booking.subject.name %> - <%= booking.subject.code %></h4>
                 <div class="booking-meta">
                   <% if (user.role === 'student') { %>
-                    <span>👨‍🏫 <%= booking.tutor.name %></span>
+                    <span>👨‍🏫 Tutor: <strong><%= booking.tutor.name %></strong></span>
                   <% } else { %>
-                    <span>👨‍🎓 <%= booking.student.name %></span>
+                    <span>👨‍🎓 Student: <strong><%= booking.student.name %></strong></span>
                   <% } %>
-                  <span>📅 <%= new Date(booking.date).toDateString() %> · <%= booking.startTime %>–<%= booking.endTime %></span>
+                  <span>📅 <%= new Date(booking.date).toDateString() %></span>
+                  <span>⏰ <%= booking.startTime %> – <%= booking.endTime %></span>
+                  <span>⏱ Duration: <%= booking.duration %> hour(s)</span>
                   <span><%= booking.location === 'online' ? '💻 Online' : '📍 On-campus' %></span>
                 </div>
                 <% if (booking.notes) { %>
@@ -118,10 +158,33 @@
                   </div>
                 <% } %>
               </div>
-              <div style="display:flex;gap:8px;align-items:center;">
-                <span class="badge badge-<%= booking.status === 'confirmed' ? 'turquoise' : booking.status === 'pending' ? 'pink' : 'gray' %>">
-                  <%= booking.status.charAt(0).toUpperCase() + booking.status.slice(1) %>
-                </span>
+              <div class="booking-actions">
+                <% if (booking.status === 'confirmed') { %>
+                  <span class="badge badge-turquoise">✓ Confirmed</span>
+                  <% if (user.role === 'student') { %>
+                    <form method="POST" action="/api/bookings/<%= booking._id %>?_method=DELETE" style="display:inline;" onsubmit="return confirm('Are you sure you want to cancel this booking?')">
+                      <button type="submit" class="btn btn-outline-pink btn-sm">Cancel</button>
+                    </form>
+                  <% } %>
+                <% } else if (booking.status === 'pending') { %>
+                  <span class="badge badge-pink">⏳ Pending</span>
+                  <% if (user.role === 'student') { %>
+                    <form method="POST" action="/api/bookings/<%= booking._id %>?_method=DELETE" style="display:inline;" onsubmit="return confirm('Are you sure you want to cancel this request?')">
+                      <button type="submit" class="btn btn-outline-pink btn-sm">Cancel Request</button>
+                    </form>
+                  <% } %>
+                <% } else if (booking.status === 'completed') { %>
+                  <span class="badge badge-green">✅ Completed</span>
+                  <% if (user.role === 'student' && !hasReview) { %>
+                    <button class="btn btn-outline-turquoise btn-sm" onclick='openReviewModal("<%= booking._id %>", "<%= booking.tutor._id %>", "<%= booking.subject.name %>", "<%= booking.tutor.name %>")'>
+                      ⭐ Leave Review
+                    </button>
+                  <% } else if (user.role === 'student' && hasReview) { %>
+                    <span class="badge badge-gray">⭐ Reviewed</span>
+                  <% } %>
+                <% } else if (booking.status === 'cancelled') { %>
+                  <span class="badge badge-gray">❌ Cancelled</span>
+                <% } %>
               </div>
             </div>
           <% }) %>
@@ -130,5 +193,111 @@
     </div>
   </main>
 </div>
+
+<!-- Review Modal -->
+<div id="reviewModal" class="modal">
+  <div class="modal-content">
+    <h3 id="reviewModalTitle" style="margin-bottom: 16px;">Rate Your Session</h3>
+    <form id="reviewForm" method="POST" action="/api/reviews">
+      <input type="hidden" name="bookingId" id="reviewBookingId">
+      <input type="hidden" name="tutorId" id="reviewTutorId">
+      
+      <div class="form-group">
+        <label class="form-label">Your Rating</label>
+        <div class="stars">
+          <span class="star" data-rating="1">☆</span>
+          <span class="star" data-rating="2">☆</span>
+          <span class="star" data-rating="3">☆</span>
+          <span class="star" data-rating="4">☆</span>
+          <span class="star" data-rating="5">☆</span>
+        </div>
+        <input type="hidden" name="rating" id="ratingInput" required>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Your Review</label>
+        <textarea class="form-input" name="comment" rows="4" placeholder="Share your experience with this tutor... What did they help you with? Would you recommend them?" required></textarea>
+      </div>
+      
+      <div class="form-actions" style="margin-top: 20px;">
+        <button type="button" class="btn btn-ghost" onclick="closeReviewModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Submit Review</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  let currentRating = 0;
+  
+  function openReviewModal(bookingId, tutorId, subjectName, tutorName) {
+    document.getElementById('reviewBookingId').value = bookingId;
+    document.getElementById('reviewTutorId').value = tutorId;
+    document.getElementById('reviewModalTitle').innerHTML = `Rate Your ${subjectName} Session with ${tutorName}`;
+    document.getElementById('reviewModal').style.display = 'flex';
+    
+    // Reset stars
+    currentRating = 0;
+    document.getElementById('ratingInput').value = '';
+    document.querySelectorAll('.star').forEach(star => {
+      star.innerHTML = '☆';
+      star.classList.remove('active');
+    });
+    
+    // Clear textarea
+    document.querySelector('#reviewForm textarea').value = '';
+  }
+  
+  function closeReviewModal() {
+    document.getElementById('reviewModal').style.display = 'none';
+  }
+  
+  // Star rating functionality
+  document.querySelectorAll('.star').forEach(star => {
+    star.addEventListener('click', function() {
+      currentRating = parseInt(this.dataset.rating);
+      document.getElementById('ratingInput').value = currentRating;
+      
+      document.querySelectorAll('.star').forEach((s, index) => {
+        if (index < currentRating) {
+          s.innerHTML = '★';
+          s.classList.add('active');
+        } else {
+          s.innerHTML = '☆';
+          s.classList.remove('active');
+        }
+      });
+    });
+    
+    star.addEventListener('mouseenter', function() {
+      const rating = parseInt(this.dataset.rating);
+      document.querySelectorAll('.star').forEach((s, index) => {
+        if (index < rating) {
+          s.innerHTML = '★';
+        } else {
+          s.innerHTML = '☆';
+        }
+      });
+    });
+    
+    star.addEventListener('mouseleave', function() {
+      document.querySelectorAll('.star').forEach((s, index) => {
+        if (index < currentRating) {
+          s.innerHTML = '★';
+        } else {
+          s.innerHTML = '☆';
+        }
+      });
+    });
+  });
+  
+  // Close modal when clicking outside
+  window.onclick = function(event) {
+    const modal = document.getElementById('reviewModal');
+    if (event.target === modal) {
+      closeReviewModal();
+    }
+  }
+</script>
 </body>
 </html>

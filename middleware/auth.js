@@ -1,62 +1,29 @@
-const jwt = require("jsonwebtoken");
+// Require authentication middleware
+function requireAuth(req, res, next) {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+  next();
+}
 
-const setLocals = (req, res, next) => {
-    const token = req.cookies.token;
-    
-    if (token) {
-        try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            res.locals.user = decoded;
-            // Also sync with session for backward compatibility
-            req.session.user = decoded;
-        } catch (err) {
-            res.locals.user = null;
-        }
+// Require specific role(s) middleware
+function requireRole(roles) {
+  return (req, res, next) => {
+    if (!req.session.user) {
+      return res.redirect('/login');
+    }
+    if (roles.includes(req.session.user.role)) {
+      next();
     } else {
-        res.locals.user = null;
+      res.status(403).send('Access denied');
     }
-    next();
-};
+  };
+}
 
-// Middleware to protect routes
-const requireAuth = (req, res, next) => {
-    const token = req.cookies.token;
-    
-    if (!token && !req.session.user) {
-        return res.redirect('/login');
-    }
-    
-    if (token) {
-        try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            req.user = decoded;
-            next();
-        } catch (err) {
-            res.clearCookie('token');
-            req.session.destroy();
-            return res.redirect('/login');
-        }
-    } else if (req.session.user) {
-        req.user = req.session.user;
-        next();
-    } else {
-        res.redirect('/login');
-    }
-};
+// Make user available to all views
+function setUserLocals(req, res, next) {
+  res.locals.user = req.session.user || null;
+  next();
+}
 
-// Role-based middleware
-const requireRole = (roles) => {
-    return (req, res, next) => {
-        const user = req.user || res.locals.user;
-        if (!user) {
-            return res.redirect('/login');
-        }
-        if (roles.includes(user.role)) {
-            next();
-        } else {
-            res.status(403).send('Access denied');
-        }
-    };
-};
-
-module.exports = { setLocals, requireAuth, requireRole };
+module.exports = { requireAuth, requireRole, setUserLocals };
