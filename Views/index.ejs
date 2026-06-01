@@ -1,107 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SmartTutor – Belgium Campus iTversity</title>
-  <link rel="stylesheet" href="/css/styles.css"/>
-  <style>
-    body { display:flex; align-items:center; justify-content:center; min-height:100vh; background:var(--gray-50); }
-    .index-card { background:var(--white); border:1px solid var(--gray-200); border-radius:var(--radius-lg); padding:36px 40px; max-width:500px; width:100%; box-shadow:var(--shadow-md); }
-    .index-logo { display:flex; align-items:center; gap:12px; margin-bottom:6px; }
-    .index-logo .logo-icon { width:42px; height:42px; background:var(--turquoise); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:22px; }
-    .index-title { font-size:20px; font-weight:700; }
-    .index-sub { font-size:12px; color:var(--gray-400); margin-bottom:24px; }
-    .role-section { margin-bottom:20px; }
-    .role-label { font-size:11px; font-weight:600; color:var(--gray-400); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:8px; }
-    .page-links { display:flex; flex-direction:column; gap:6px; margin-bottom:6px; }
-    .page-link { display:flex; align-items:center; gap:12px; padding:12px 14px; border:1px solid var(--gray-200); border-radius:var(--radius); transition:all 0.15s; }
-    .page-link:hover { border-color:var(--turquoise); background:var(--turquoise-bg); }
-    .page-num { width:26px; height:26px; border-radius:50%; background:var(--turquoise-light); color:var(--turquoise-dark); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex-shrink:0; }
-    .page-num.pink { background:var(--pink-light); color:var(--pink-dark); }
-    .page-link-name { font-size:13px; font-weight:500; }
-    .page-link-desc { font-size:11px; color:var(--gray-400); }
-    .arrow { margin-left:auto; color:var(--gray-300); font-size:16px; }
-    .page-link:hover .arrow { color:var(--turquoise); }
-    hr { border:none; border-top:1px solid var(--gray-100); margin:16px 0; }
-  </style>
+  <title>SmartTutor</title>
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body>
-  <div class="index-card">
-    <div class="index-logo">
-      <div class="logo-icon">🎓</div>
-      <div>
-        <div class="index-title">SmartTutor</div>
-        <div class="index-sub">Belgium Campus iTversity · INL381 Group 9</div>
-      </div>
-    </div>
-
-    <div class="role-section">
-      <div class="role-label">🎓 Student Portal</div>
-      <div class="page-links">
-        <a href="/login" class="page-link">
-          <div class="page-num">1</div>
-          <div><div class="page-link-name">Login</div><div class="page-link-desc">Sign in · Role selection · Demo shortcuts</div></div>
-          <span class="arrow">›</span>
-        </a>
-        <a href="/student-dashboard" class="page-link">
-          <div class="page-num">2</div>
-          <div><div class="page-link-name">Student Dashboard</div><div class="page-link-desc">Stats, upcoming bookings overview</div></div>
-          <span class="arrow">›</span>
-        </a>
-        <a href="/my-bookings" class="page-link">
-          <div class="page-num">3</div>
-          <div><div class="page-link-name">My Bookings</div><div class="page-link-desc">All sessions · Filter by status</div></div>
-          <span class="arrow">›</span>
-        </a>
-        <a href="/book-session" class="page-link">
-          <div class="page-num">4</div>
-          <div><div class="page-link-name">Book a Session</div><div class="page-link-desc">Belgium Campus modules · 3-step flow</div></div>
-          <span class="arrow">›</span>
-        </a>
-        <a href="/notifications" class="page-link">
-          <div class="page-num">5</div>
-          <div><div class="page-link-name">Notifications</div><div class="page-link-desc">Reminders · ML no-show alerts</div></div>
-          <span class="arrow">›</span>
-        </a>
-      </div>
-    </div>
-
-    <hr/>
-
-    <div class="role-section">
-      <div class="role-label">👩‍🏫 Tutor Portal</div>
-      <div class="page-links">
-        <a href="/tutor-dashboard" class="page-link">
-          <div class="page-num pink">6</div>
-          <div><div class="page-link-name">Tutor Dashboard</div><div class="page-link-desc">Weekly calendar · Pending requests</div></div>
-          <span class="arrow">›</span>
-        </a>
-        <a href="/student-requests" class="page-link">
-          <div class="page-num pink">7</div>
-          <div><div class="page-link-name">Student Requests</div><div class="page-link-desc">Approve or decline booking requests</div></div>
-          <span class="arrow">›</span>
-        </a>
-        <a href="/profile-settings" class="page-link">
-          <div class="page-num pink">8</div>
-          <div><div class="page-link-name">Profile & Availability</div><div class="page-link-desc">Modules tutored · Weekly availability grid</div></div>
-          <span class="arrow">›</span>
-        </a>
-      </div>
-    </div>
-
-    <hr/>
-
-    <div class="role-section" style="margin-bottom:0;">
-      <div class="role-label">🔧 Admin Portal</div>
-      <div class="page-links">
-        <a href="/admin-analytics" class="page-link">
-          <div class="page-num" style="background:var(--gray-100);color:var(--gray-600);">9</div>
-          <div><div class="page-link-name">Admin Analytics</div><div class="page-link-desc">Module stats · Charts · Bookings table</div></div>
-          <span class="arrow">›</span>
-        </a>
-      </div>
-    </div>
+<body style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+  <div style="text-align: center;">
+    <h1>🎓 SmartTutor</h1>
+    <p>Welcome to SmartTutor Platform</p>
+    <a href="/login" class="btn btn-primary">Login</a>
+    <a href="/register" class="btn btn-outline-turquoise">Register</a>
   </div>
 </body>
 </html>

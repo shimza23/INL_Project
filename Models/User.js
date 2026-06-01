@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   studentNumber: { type: String, unique: true, sparse: true },
   phone: String,
   bio: String,
-  modules: [{ type: String }], // modules they tutor (for tutors)
+  modules: [{ type: String }],
   rating: { type: Number, default: 0 },
   totalSessions: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now }

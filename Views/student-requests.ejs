@@ -3,116 +3,115 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SmartTutor – Student Requests</title>
+  <title>Student Requests | SmartTutor</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/styles.css"/>
   <style>
-    .request-grid-full { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .request-grid-full { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    @media (max-width: 1000px) { .request-grid-full { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 700px) { .request-grid-full { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 <div class="layout">
-  <div id="sidebar-container"></div>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🎓</div>
+      <div class="brand">
+        <span class="brand-name">SmartTutor</span>
+        <span class="brand-sub">Belgium Campus iTversity</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/tutor-dashboard" class="nav-item">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        My Schedule
+      </a>
+      <a href="/student-requests" class="nav-item active">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+        Student Requests
+      </a>
+      <a href="/my-bookings" class="nav-item">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Sessions
+      </a>
+      <a href="/profile-settings" class="nav-item">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Profile
+      </a>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar"><%= user.name.charAt(0) %><%= user.name.split(' ')[1]?.charAt(0) || '' %></div>
+      <div>
+        <div class="user-name"><%= user.name %></div>
+        <div class="user-role">Tutor</div>
+      </div>
+    </div>
+  </aside>
 
+  <!-- Main Content -->
   <main class="main">
     <header class="topbar">
       <div class="topbar-left">
         <h1>Student Requests</h1>
-        <p>6 pending requests awaiting your response</p>
+        <p><%= requests.length %> pending requests awaiting your response</p>
       </div>
       <div class="topbar-right">
-        <a href="/profile-settings" class="user-avatar" style="text-decoration:none;">SD</a>
+        <a href="/profile-settings" class="user-avatar" style="text-decoration:none;"><%= user.name.charAt(0) %><%= user.name.split(' ')[1]?.charAt(0) || '' %></a>
       </div>
     </header>
 
     <div class="page-content">
-      <div class="request-grid-full">
-        <div class="request-card">
-          <div class="request-top">
-            <div class="req-avatar">TN</div>
-            <div><div class="req-name">Thabo Nkosi</div><div class="req-time">1 hr ago · 22018456</div></div>
-          </div>
-          <div class="req-meta">📚 Web Programming (WPR37(8)1)</div>
-          <div class="req-meta">📅 Tue 15 Apr · 10:00 · 90 min</div>
-          <div class="req-desc">Express routing and async/await in Node.js – struggling with the backend practical.</div>
-          <div class="req-actions">
-            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
-            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
-          </div>
+      <% if (requests.length === 0) { %>
+        <div class="card" style="text-align:center; padding:40px;">
+          <p>No pending requests. Check back later!</p>
         </div>
-        <div class="request-card">
-          <div class="request-top">
-            <div class="req-avatar">LM</div>
-            <div><div class="req-name">Lerato Molefe</div><div class="req-time">3 hrs ago · 22019021</div></div>
-          </div>
-          <div class="req-meta">📚 Database Design (DBD37(8)1)</div>
-          <div class="req-meta">📅 Thu 17 Apr · 14:00 · 60 min</div>
-          <div class="req-desc">MongoDB aggregation pipelines for the group project. Assessment due next week.</div>
-          <div class="req-actions">
-            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
-            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
-          </div>
+      <% } else { %>
+        <div class="request-grid-full">
+          <% requests.forEach(request => { %>
+            <div class="request-card">
+              <div class="request-top">
+                <div class="req-avatar"><%= request.student.name.charAt(0) %></div>
+                <div>
+                  <div class="req-name"><%= request.student.name %></div>
+                  <div class="req-time"><%= request.student.studentNumber || 'Student' %></div>
+                </div>
+              </div>
+              <div class="req-meta">📚 <%= request.subject.name %> (<%= request.subject.code %>)</div>
+              <div class="req-meta">📅 <%= new Date(request.date).toDateString() %> · <%= request.startTime %> (<%= request.duration %> min)</div>
+              <div class="req-meta"><%= request.location === 'online' ? '💻 Online Session' : '📍 On-campus Session' %></div>
+              <div class="req-desc"><%= request.notes || 'No additional notes provided.' %></div>
+              <div class="req-actions">
+                <form method="POST" action="/api/bookings/<%= request._id %>/status?_method=PUT" style="flex:1">
+                  <input type="hidden" name="status" value="confirmed">
+                  <button type="submit" class="btn btn-outline-turquoise btn-sm" style="width:100%">✓ Approve</button>
+                </form>
+                <form method="POST" action="/api/bookings/<%= request._id %>/status?_method=PUT" style="flex:1">
+                  <input type="hidden" name="status" value="cancelled">
+                  <button type="submit" class="btn btn-outline-pink btn-sm" style="width:100%">✕ Decline</button>
+                </form>
+              </div>
+            </div>
+          <% }) %>
         </div>
-        <div class="request-card">
-          <div class="request-top">
-            <div class="req-avatar">NK</div>
-            <div><div class="req-name">Nomsa Khoza</div><div class="req-time">1 day ago · 22020134</div></div>
-          </div>
-          <div class="req-meta">📚 Programming (PRG271)</div>
-          <div class="req-meta">📅 Fri 18 Apr · 09:00 · 60 min</div>
-          <div class="req-desc">C# OOP – inheritance and polymorphism. Struggling with the practical tasks.</div>
-          <div class="req-actions">
-            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
-            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
-          </div>
-        </div>
-        <div class="request-card">
-          <div class="request-top">
-            <div class="req-avatar">KD</div>
-            <div><div class="req-name">Kagiso Dube</div><div class="req-time">2 days ago · 22017899</div></div>
-          </div>
-          <div class="req-meta">📚 Machine Learning (MLG37(8)1)</div>
-          <div class="req-meta">📅 Mon 21 Apr · 11:00 · 90 min</div>
-          <div class="req-desc">Classification models and confusion matrices. Test coming up this Friday.</div>
-          <div class="req-actions">
-            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
-            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
-          </div>
-        </div>
-        <div class="request-card">
-          <div class="request-top">
-            <div class="req-avatar">BS</div>
-            <div><div class="req-name">Bongani Sithole</div><div class="req-time">2 days ago · 22016543</div></div>
-          </div>
-          <div class="req-meta">📚 Data Analytics (DAL371)</div>
-          <div class="req-meta">📅 Tue 22 Apr · 13:00 · 60 min</div>
-          <div class="req-desc">Power BI dashboard creation – confused about DAX measures and calculated columns.</div>
-          <div class="req-actions">
-            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
-            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
-          </div>
-        </div>
-        <div class="request-card">
-          <div class="request-top">
-            <div class="req-avatar">MP</div>
-            <div><div class="req-name">Mpho Pule</div><div class="req-time">3 days ago · 22015678</div></div>
-          </div>
-          <div class="req-meta">📚 UX Design (UAX37(8)1)</div>
-          <div class="req-meta">📅 Wed 23 Apr · 10:00 · 60 min</div>
-          <div class="req-desc">Figma high-fidelity prototype – need help with component design and auto-layout.</div>
-          <div class="req-actions">
-            <button class="btn btn-outline-turquoise btn-sm">✓ Approve</button>
-            <button class="btn btn-outline-pink btn-sm">✕ Decline</button>
-          </div>
-        </div>
-      </div>
+      <% } %>
     </div>
   </main>
 </div>
 
-<script src="/js/nav.js"></script>
-<script>
-  document.getElementById('sidebar-container').innerHTML =
-    buildSidebar('tutor', 'Sipho Dlamini', 'Tutor · WPR, DBD', '/student-requests');
-</script>
+<style>
+  .request-grid-full { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .request-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 16px; }
+  .request-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .req-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--turquoise-light); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--turquoise-dark); font-size: 13px; }
+  .req-name { font-size: 14px; font-weight: 600; }
+  .req-time { font-size: 11px; color: var(--gray-400); }
+  .req-meta { font-size: 12px; color: var(--gray-600); margin-bottom: 3px; display: flex; align-items: center; gap: 5px; }
+  .req-desc { font-size: 12px; color: var(--gray-400); margin: 8px 0 12px; line-height: 1.5; }
+  .req-actions { display: flex; gap: 8px; }
+  .btn-outline-pink { background: transparent; color: var(--pink); border: 1.5px solid var(--pink); }
+  .btn-outline-pink:hover { background: var(--pink-light); }
+</style>
 </body>
 </html>
