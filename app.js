@@ -7,7 +7,7 @@ const port    = process.env.PORT || 3000;
 
 require('./connection'); // if needed
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'Views'));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
@@ -19,6 +19,10 @@ app.get('/manage', (req, res) => { res.render('manage'); });
 app.get('/authentication', (req, res) => { res.render('authentication'); });
 
 //set server
-app.listen(port, () => {
-  console.log(`Server is running on localhost:${port}`);
-});
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server is running on localhost:${port}`);
+  });
+}
+
+module.exports = app;
