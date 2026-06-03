@@ -7,91 +7,44 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/styles.css"/>
   <style>
-    .request-grid-full { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-    @media (max-width: 1000px) { .request-grid-full { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 700px) { .request-grid-full { grid-template-columns: 1fr; } }
+    .request-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .request-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 16px; }
+    .req-avatar { width: 38px; height: 38px; background: var(--turquoise-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+    .req-actions { display: flex; gap: 8px; margin-top: 12px; }
   </style>
 </head>
 <body>
 <div class="layout">
-  <!-- Sidebar -->
   <aside class="sidebar">
-    <div class="sidebar-logo">
-      <div class="logo-icon">🎓</div>
-      <div class="brand">
-        <span class="brand-name">SmartTutor</span>
-        <span class="brand-sub">Belgium Campus iTversity</span>
-      </div>
-    </div>
+    <div class="sidebar-logo"><div class="logo-icon">🎓</div><div class="brand"><span class="brand-name">SmartTutor</span><span class="brand-sub">Belgium Campus iTversity</span></div></div>
     <nav class="sidebar-nav">
-      <a href="/tutor-dashboard" class="nav-item">
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        My Schedule
-      </a>
-      <a href="/student-requests" class="nav-item active">
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
-        Student Requests
-      </a>
-      <a href="/my-bookings" class="nav-item">
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        Sessions
-      </a>
-      <a href="/profile-settings" class="nav-item">
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Profile
-      </a>
+      <a href="/tutor-dashboard" class="nav-item">📅 My Schedule</a>
+      <a href="/student-requests" class="nav-item active">📋 Student Requests</a>
+      <a href="/my-bookings" class="nav-item">📊 Sessions</a>
+      <a href="/profile-settings" class="nav-item">👤 Profile</a>
     </nav>
     <div class="sidebar-user">
       <div class="user-avatar"><%= user.name.charAt(0) %><%= user.name.split(' ')[1]?.charAt(0) || '' %></div>
-      <div>
-        <div class="user-name"><%= user.name %></div>
-        <div class="user-role">Tutor</div>
-      </div>
+      <div><div class="user-name"><%= user.name %></div><div class="user-role">Tutor</div></div>
+      <a href="/logout" class="logout-btn" style="margin-left: auto; color: var(--gray-400);">🚪 Logout</a>
     </div>
   </aside>
 
-  <!-- Main Content -->
   <main class="main">
-    <header class="topbar">
-      <div class="topbar-left">
-        <h1>Student Requests</h1>
-        <p><%= requests.length %> pending requests awaiting your response</p>
-      </div>
-      <div class="topbar-right">
-        <a href="/profile-settings" class="user-avatar" style="text-decoration:none;"><%= user.name.charAt(0) %><%= user.name.split(' ')[1]?.charAt(0) || '' %></a>
-      </div>
-    </header>
+    <header class="topbar"><div><h1>Student Requests</h1><p><%= requests.length %> pending</p></div><div><a href="/profile-settings" class="user-avatar"><%= user.name.charAt(0) %></a><a href="/logout" class="btn btn-ghost btn-sm">Logout</a></div></header>
 
     <div class="page-content">
       <% if (requests.length === 0) { %>
-        <div class="card" style="text-align:center; padding:40px;">
-          <p>No pending requests. Check back later!</p>
-        </div>
+        <div class="card" style="text-align:center; padding:40px;"><p>No pending requests.</p></div>
       <% } else { %>
-        <div class="request-grid-full">
+        <div class="request-grid">
           <% requests.forEach(request => { %>
             <div class="request-card">
-              <div class="request-top">
-                <div class="req-avatar"><%= request.student.name.charAt(0) %></div>
-                <div>
-                  <div class="req-name"><%= request.student.name %></div>
-                  <div class="req-time"><%= request.student.studentNumber || 'Student' %></div>
-                </div>
-              </div>
-              <div class="req-meta">📚 <%= request.subject.name %> (<%= request.subject.code %>)</div>
-              <div class="req-meta">📅 <%= new Date(request.date).toDateString() %> · <%= request.startTime %> (<%= request.duration %> min)</div>
-              <div class="req-meta"><%= request.location === 'online' ? '💻 Online Session' : '📍 On-campus Session' %></div>
-              <div class="req-desc"><%= request.notes || 'No additional notes provided.' %></div>
-              <div class="req-actions">
-                <form method="POST" action="/api/bookings/<%= request._id %>/status?_method=PUT" style="flex:1">
-                  <input type="hidden" name="status" value="confirmed">
-                  <button type="submit" class="btn btn-outline-turquoise btn-sm" style="width:100%">✓ Approve</button>
-                </form>
-                <form method="POST" action="/api/bookings/<%= request._id %>/status?_method=PUT" style="flex:1">
-                  <input type="hidden" name="status" value="cancelled">
-                  <button type="submit" class="btn btn-outline-pink btn-sm" style="width:100%">✕ Decline</button>
-                </form>
-              </div>
+              <div class="request-top" style="display:flex; gap:10px; margin-bottom:10px;"><div class="req-avatar"><%= request.student.name.charAt(0) %></div><div><strong><%= request.student.name %></strong><br><%= request.student.studentNumber %></div></div>
+              <div class="req-meta">📚 <%= request.subject.name %></div>
+              <div class="req-meta">📅 <%= new Date(request.date).toDateString() %> · <%= request.startTime %> (<%= request.duration %> hr)</div>
+              <div class="req-desc"><%= request.notes || 'No additional notes' %></div>
+              <div class="req-actions"><form method="POST" action="/api/bookings/<%= request._id %>/status?_method=PUT"><input type="hidden" name="status" value="confirmed"><button type="submit" class="btn btn-outline-turquoise btn-sm" style="flex:1">✓ Approve</button></form><form method="POST" action="/api/bookings/<%= request._id %>/status?_method=PUT"><input type="hidden" name="status" value="cancelled"><button type="submit" class="btn btn-outline-pink btn-sm" style="flex:1">✕ Decline</button></form></div>
             </div>
           <% }) %>
         </div>
@@ -99,19 +52,5 @@
     </div>
   </main>
 </div>
-
-<style>
-  .request-grid-full { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  .request-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 16px; }
-  .request-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .req-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--turquoise-light); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--turquoise-dark); font-size: 13px; }
-  .req-name { font-size: 14px; font-weight: 600; }
-  .req-time { font-size: 11px; color: var(--gray-400); }
-  .req-meta { font-size: 12px; color: var(--gray-600); margin-bottom: 3px; display: flex; align-items: center; gap: 5px; }
-  .req-desc { font-size: 12px; color: var(--gray-400); margin: 8px 0 12px; line-height: 1.5; }
-  .req-actions { display: flex; gap: 8px; }
-  .btn-outline-pink { background: transparent; color: var(--pink); border: 1.5px solid var(--pink); }
-  .btn-outline-pink:hover { background: var(--pink-light); }
-</style>
 </body>
 </html>

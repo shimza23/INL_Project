@@ -1,15 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>SmartTutor</title>
-  <link rel="stylesheet" href="/css/styles.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartTutor | Belgium Campus iTversity</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --turquoise: #2DD4BF;
+      --turquoise-dark: #0D9488;
+      --pink: #EC4899;
+      --white: #FFFFFF;
+      --gray-50: #F9FAFB;
+      --gray-200: #E5E7EB;
+      --gray-400: #9CA3AF;
+      --gray-800: #1F2937;
+      --font: 'DM Sans', sans-serif;
+      --radius-lg: 14px;
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+    }
+    body { font-family: var(--font); background: var(--gray-50); display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .index-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 36px 40px; max-width: 500px; width: 100%; box-shadow: var(--shadow-md); text-align: center; }
+    .logo-icon { width: 60px; height: 60px; background: var(--turquoise); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 16px; }
+    .index-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .index-sub { font-size: 14px; color: var(--gray-400); margin-bottom: 32px; }
+    .btn { display: block; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: 600; text-align: center; text-decoration: none; margin-bottom: 12px; transition: all 0.15s; }
+    .btn-primary { background: var(--turquoise); color: white; }
+    .btn-primary:hover { background: var(--turquoise-dark); }
+    .btn-outline { background: transparent; color: var(--turquoise-dark); border: 2px solid var(--turquoise); }
+    .btn-outline:hover { background: var(--turquoise); color: white; }
+  </style>
 </head>
-<body style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-  <div style="text-align: center;">
-    <h1>🎓 SmartTutor</h1>
-    <p>Welcome to SmartTutor Platform</p>
-    <a href="/login" class="btn btn-primary">Login</a>
-    <a href="/register" class="btn btn-outline-turquoise">Register</a>
-  </div>
+<body>
+<div class="index-card">
+  <div class="logo-icon">🎓</div>
+  <div class="index-title">SmartTutor</div>
+  <div class="index-sub">Belgium Campus iTversity · INL381 Group 9</div>
+  <a href="/login" class="btn btn-primary">Login</a>
+  <a href="/register" class="btn btn-outline">Register</a>
+</div>
 </body>
 </html>

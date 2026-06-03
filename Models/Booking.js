@@ -10,7 +10,9 @@ const bookingSchema = new mongoose.Schema({
   duration: Number,
   location: { type: String, enum: ['online', 'oncampus'], default: 'online' },
   status: { type: String, enum: ['pending', 'confirmed', 'completed', 'cancelled'], default: 'pending' },
+  attendance: { type: String, enum: ['pending', 'attended', 'missed'], default: 'pending' },  // ADD THIS LINE
   notes: String,
+  studentRating: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now }
 });
 

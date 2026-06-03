@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const subjectSchema = new mongoose.Schema({
   code: { type: String, required: true, unique: true },
   name: { type: String, required: true },
-  description: String,
-  icon: String,
-  yearLevel: Number,
-  department: String,
+  description: { type: String, default: '' },
+  icon: { type: String, default: '📚' },
+  yearLevel: { type: Number, default: 1 },
+  department: { type: String, default: '' },
   tutors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });
 

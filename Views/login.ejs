@@ -5,32 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login | SmartTutor</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/styles.css"/>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --turquoise: #2DD4BF;
-      --turquoise-dark: #0D9488;
-      --turquoise-light: #CCFBF1;
-      --turquoise-bg: #F0FDFA;
-      --pink: #EC4899;
-      --pink-dark: #BE185D;
-      --pink-light: #FCE7F3;
-      --white: #FFFFFF;
-      --gray-50: #F9FAFB;
-      --gray-100: #F3F4F6;
-      --gray-200: #E5E7EB;
-      --gray-400: #9CA3AF;
-      --gray-600: #4B5563;
-      --gray-700: #374151;
-      --gray-800: #1F2937;
-      --font: 'DM Sans', sans-serif;
-      --radius-sm: 6px;
-      --radius: 10px;
-      --radius-lg: 14px;
-      --shadow: 0 1px 4px rgba(0,0,0,0.07);
-      --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
-    }
-    body { font-family: var(--font); background: var(--gray-50); display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .login-body { background: var(--gray-50); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin:0; }
     .login-wrapper { width: 100%; max-width: 420px; padding: 20px; }
     .login-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--gray-200); padding: 36px 32px; box-shadow: var(--shadow-md); }
     .login-logo { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 22px; }
@@ -40,22 +17,10 @@
     .role-tabs { display: flex; gap: 4px; background: var(--gray-100); border-radius: var(--radius); padding: 4px; margin-bottom: 20px; }
     .role-tab { flex: 1; padding: 7px; border: none; border-radius: var(--radius-sm); background: transparent; font-size: 13px; font-weight: 500; color: var(--gray-600); cursor: pointer; transition: all 0.15s; font-family: var(--font); }
     .role-tab.active { background: var(--white); color: var(--turquoise-dark); box-shadow: var(--shadow); }
-    .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 16px; }
-    .form-label { font-size: 13px; font-weight: 500; color: var(--gray-700); }
-    .form-input { padding: 10px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 14px; background: var(--white); outline: none; width: 100%; }
-    .form-input:focus { border-color: var(--turquoise); }
-    .btn { display: inline-block; padding: 9px 18px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; cursor: pointer; border: none; transition: all 0.15s; text-align: center; }
-    .btn-primary { background: var(--turquoise); color: #fff; width: 100%; height: 42px; }
-    .btn-primary:hover { background: var(--turquoise-dark); }
-    .login-forgot { text-align: right; margin-top: -8px; margin-bottom: 18px; }
-    .login-forgot a { color: var(--turquoise-dark); font-size: 12px; text-decoration: none; }
-    .login-register { text-align: center; font-size: 13px; color: var(--gray-600); margin-bottom: 18px; }
-    .link-pink { color: var(--pink); font-weight: 500; text-decoration: none; }
-    .link-pink:hover { text-decoration: underline; }
     .error-message { background: #FEE2E2; color: #DC2626; padding: 10px; border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 13px; text-align: center; }
   </style>
 </head>
-<body>
+<body class="login-body">
 <div class="login-wrapper">
   <div class="login-card">
     <div class="login-logo">
@@ -91,11 +56,11 @@
       <div class="login-forgot">
         <a href="#">Forgot password?</a>
       </div>
-      <button type="submit" class="btn btn-primary">Sign In</button>
+      <button type="submit" class="btn btn-primary" style="width:100%; height:42px;">Sign In</button>
     </form>
     
-    <div class="login-register">
-      New student? <a href="/register" class="link-pink">Register here</a>
+    <div class="login-register" style="text-align:center; margin-top:16px;">
+      New student? <a href="/register" style="color:var(--pink);">Register here</a>
     </div>
   </div>
 </div>

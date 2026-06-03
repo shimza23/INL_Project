@@ -39,20 +39,24 @@ app.set('view engine', 'ejs');
 // Initialize subjects in database
 const Subject = require('./models/Subject');
 async function initializeSubjects() {
-  const count = await Subject.countDocuments();
-  if (count === 0) {
-    const subjects = [
-      { code: 'WPR37(8)1', name: 'Web Programming', icon: '🌐', description: 'JavaScript, Node.js, EJS', yearLevel: 3 },
-      { code: 'DBD37(8)1', name: 'Database Design', icon: '🗄️', description: 'MongoDB, Data Modelling', yearLevel: 3 },
-      { code: 'MLG37(8)1', name: 'Machine Learning', icon: '🤖', description: 'Prediction, Classification', yearLevel: 3 },
-      { code: 'DAL371', name: 'Data Analytics', icon: '📊', description: 'Power BI, Dashboards', yearLevel: 3 },
-      { code: 'PRG271', name: 'Programming', icon: '💻', description: 'C#, OOP, Algorithms', yearLevel: 2 },
-      { code: 'LPR271', name: 'Linear Programming', icon: '📐', description: 'Optimisation, Simplex', yearLevel: 2 },
-      { code: 'UAX37(8)1', name: 'UX Design', icon: '🎨', description: 'Figma, Prototyping', yearLevel: 3 },
-      { code: 'CYB371', name: 'Cybersecurity', icon: '🔒', description: 'Auth, Encryption, OWASP', yearLevel: 3 }
-    ];
-    await Subject.insertMany(subjects);
-    console.log('✓ Subjects initialized');
+  try {
+    const count = await Subject.countDocuments();
+    if (count === 0) {
+      const subjects = [
+        { code: 'WPR37(8)1', name: 'Web Programming', icon: '🌐', description: 'JavaScript, Node.js, EJS', yearLevel: 3 },
+        { code: 'DBD37(8)1', name: 'Database Design', icon: '🗄️', description: 'MongoDB, Data Modelling', yearLevel: 3 },
+        { code: 'MLG37(8)1', name: 'Machine Learning', icon: '🤖', description: 'Prediction, Classification', yearLevel: 3 },
+        { code: 'DAL371', name: 'Data Analytics', icon: '📊', description: 'Power BI, Dashboards', yearLevel: 3 },
+        { code: 'PRG271', name: 'Programming', icon: '💻', description: 'C#, OOP, Algorithms', yearLevel: 2 },
+        { code: 'LPR271', name: 'Linear Programming', icon: '📐', description: 'Optimisation, Simplex', yearLevel: 2 },
+        { code: 'UAX37(8)1', name: 'UX Design', icon: '🎨', description: 'Figma, Prototyping', yearLevel: 3 },
+        { code: 'CYB371', name: 'Cybersecurity', icon: '🔒', description: 'Auth, Encryption, OWASP', yearLevel: 3 }
+      ];
+      await Subject.insertMany(subjects);
+      console.log('✓ Subjects initialized');
+    }
+  } catch (error) {
+    console.log('⚠️ Could not initialize subjects:', error.message);
   }
 }
 

@@ -6,108 +6,45 @@
   <title>Admin Analytics | SmartTutor</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/styles.css"/>
+  <style>
+    .stat-card-filled { background: var(--turquoise); border-radius: var(--radius-lg); padding: 16px; display: flex; justify-content: space-between; color: white; }
+    .stat-card-filled .stat-value { font-size: 28px; font-weight: 600; }
+    .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+    .chart-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 18px; }
+    .bar-chart { display: flex; flex-direction: column; gap: 9px; }
+    .bar-row { display: flex; align-items: center; gap: 8px; }
+    .bar-label { width: 100px; text-align: right; font-size: 11px; }
+    .bar-track { flex: 1; height: 18px; background: var(--gray-100); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--turquoise); border-radius: 4px; }
+  </style>
 </head>
 <body>
 <div class="layout">
-  <!-- Sidebar -->
   <aside class="sidebar">
-    <div class="sidebar-logo">
-      <div class="logo-icon">🎓</div>
-      <div class="brand">
-        <span class="brand-name">SmartTutor</span>
-        <span class="brand-sub">Belgium Campus iTversity</span>
-      </div>
-    </div>
-    <nav class="sidebar-nav">
-      <a href="/admin-analytics" class="nav-item active">
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        Analytics
-      </a>
-      <a href="/profile-settings" class="nav-item">
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.82 1.18V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-2.82-1.18l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9 1.65 1.65 0 0 0 4.27 7.18l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        Settings
-      </a>
-    </nav>
-    <div class="sidebar-user">
-      <div class="user-avatar"><%= user.name.charAt(0) %><%= user.name.split(' ')[1]?.charAt(0) || '' %></div>
-      <div>
-        <div class="user-name"><%= user.name %></div>
-        <div class="user-role">Admin</div>
-      </div>
-      <a href="/logout" class="logout-btn" style="margin-left: auto; color: var(--gray-400); text-decoration: none; font-size: 12px;">🚪 Logout</a>
-    </div>
+    <div class="sidebar-logo"><div class="logo-icon">🎓</div><div class="brand"><span class="brand-name">SmartTutor</span><span class="brand-sub">Belgium Campus iTversity</span></div></div>
+    <nav class="sidebar-nav"><a href="/admin-analytics" class="nav-item active">📈 Analytics</a><a href="/profile-settings" class="nav-item">⚙️ Settings</a></nav>
+    <div class="sidebar-user"><div class="user-avatar"><%= user.name.charAt(0) %><%= user.name.split(' ')[1]?.charAt(0) || '' %></div><div><div class="user-name"><%= user.name %></div><div class="user-role">Admin</div></div><a href="/logout" class="logout-btn" style="margin-left: auto; color: var(--gray-400);">🚪 Logout</a></div>
   </aside>
 
-  <!-- Main Content -->
   <main class="main">
-    <header class="topbar">
-      <div class="topbar-left">
-        <h1>Analytics Dashboard</h1>
-        <p>Belgium Campus iTversity SmartTutor Platform – Semester 1, 2025</p>
-      </div>
-      <div class="topbar-right">
-        <a href="/profile-settings" class="user-avatar" style="text-decoration:none;"><%= user.name.charAt(0) %><%= user.name.split(' ')[1]?.charAt(0) || '' %></a>
-        <a href="/logout" class="btn btn-ghost btn-sm" style="margin-left: 8px;">Logout</a>
-      </div>
-    </header>
+    <header class="topbar"><div><h1>Analytics Dashboard</h1></div><div><a href="/profile-settings" class="user-avatar"><%= user.name.charAt(0) %></a><a href="/logout" class="btn btn-ghost btn-sm">Logout</a></div></header>
 
     <div class="page-content">
       <div class="stat-cards-4">
-        <div class="stat-card-filled">
-          <div><div class="stat-label">Total Bookings</div><div class="stat-value"><%= stats.totalBookings %></div></div>
-          <div class="stat-icon">📅</div>
-        </div>
-        <div class="stat-card-filled">
-          <div><div class="stat-label">Active Tutors</div><div class="stat-value"><%= stats.activeTutors %></div></div>
-          <div class="stat-icon">👩‍🏫</div>
-        </div>
-        <div class="stat-card-filled">
-          <div><div class="stat-label">Students Enrolled</div><div class="stat-value"><%= stats.totalStudents %></div></div>
-          <div class="stat-icon">🎓</div>
-        </div>
-        <div class="stat-card-filled">
-          <div><div class="stat-label">Avg. Satisfaction</div><div class="stat-value"><%= stats.avgRating %></div></div>
-          <div class="stat-icon">⭐</div>
-        </div>
+        <div class="stat-card-filled"><div><div class="stat-label">Total Bookings</div><div class="stat-value"><%= stats.totalBookings %></div></div><div>📅</div></div>
+        <div class="stat-card-filled"><div><div class="stat-label">Active Tutors</div><div class="stat-value"><%= stats.activeTutors %></div></div><div>👩‍🏫</div></div>
+        <div class="stat-card-filled"><div><div class="stat-label">Students</div><div class="stat-value"><%= stats.totalStudents %></div></div><div>🎓</div></div>
+        <div class="stat-card-filled"><div><div class="stat-label">Avg Rating</div><div class="stat-value"><%= stats.avgRating %></div></div><div>⭐</div></div>
       </div>
-      
-      <div class="card">
-        <div class="section-header"><span class="section-title">Recent Bookings</span></div>
-        <table class="data-table">
-          <thead><tr><th>Student</th><th>Tutor</th><th>Module</th><th>Date</th><th>Status</th></tr></thead>
-          <tbody>
-            <% recentBookings.forEach(booking => { %>
-              <tr>
-                <td><%= booking.student?.name || 'N/A' %></td>
-                <td><%= booking.tutor?.name || 'N/A' %></td>
-                <td><%= booking.subject?.name || 'N/A' %></td>
-                <td><%= new Date(booking.date).toDateString() %></td>
-                <td><span class="badge badge-turquoise"><%= booking.status %></span></td>
-              </tr>
-            <% }) %>
-          </tbody>
-        </table>
+
+      <div class="charts-row">
+        <div class="chart-card"><div class="chart-title">Most Requested Modules</div><div class="bar-chart"><div class="bar-row"><span class="bar-label">Web Programming</span><div class="bar-track"><div class="bar-fill" style="width:92%"></div></div><span>78</span></div><div class="bar-row"><span class="bar-label">Database Design</span><div class="bar-track"><div class="bar-fill" style="width:80%"></div></div><span>68</span></div><div class="bar-row"><span class="bar-label">Machine Learning</span><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div><span>59</span></div><div class="bar-row"><span class="bar-label">Programming</span><div class="bar-track"><div class="bar-fill" style="width:62%"></div></div><span>52</span></div></div></div>
+        <div class="chart-card"><div class="chart-title">Booking Trends</div><div class="bar-chart"><div class="bar-row"><span class="bar-label">Week 1</span><div class="bar-track"><div class="bar-fill" style="width:55%"></div></div><span>55</span></div><div class="bar-row"><span class="bar-label">Week 2</span><div class="bar-track"><div class="bar-fill" style="width:68%"></div></div><span>68</span></div><div class="bar-row"><span class="bar-label">Week 3</span><div class="bar-track"><div class="bar-fill" style="width:82%"></div></div><span>82</span></div><div class="bar-row"><span class="bar-label">Week 4</span><div class="bar-track"><div class="bar-fill" style="width:91%"></div></div><span>91</span></div></div></div>
       </div>
+
+      <div class="card"><div class="section-header"><span class="section-title">Recent Bookings</span></div><table class="data-table"><thead><tr><th>Student</th><th>Tutor</th><th>Module</th><th>Date</th><th>Status</th></tr></thead><tbody><% recentBookings.forEach(booking => { %><tr><td><%= booking.student?.name || 'N/A' %></td><td><%= booking.tutor?.name || 'N/A' %></td><td><%= booking.subject?.name || 'N/A' %></td><td><%= new Date(booking.date).toDateString() %></td><td><span class="badge badge-turquoise"><%= booking.status %></span></td></tr><% }); %></tbody></table></div>
     </div>
   </main>
 </div>
-
-<style>
-  .sidebar-user {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  .logout-btn {
-    padding: 4px 8px;
-    border-radius: 6px;
-    transition: all 0.15s;
-  }
-  .logout-btn:hover {
-    background: var(--gray-100);
-    color: var(--pink) !important;
-  }
-</style>
 </body>
 </html>
