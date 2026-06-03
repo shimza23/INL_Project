@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
-app.use(express.static('public'));
+app.use(express.static('Public'));
 
 // Session middleware
 app.use(session({
@@ -33,7 +33,7 @@ app.use(session({
 app.use(setUserLocals);
 
 // Set EJS as view engine
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'Views'));
 app.set('view engine', 'ejs');
 
 // Initialize subjects in database
