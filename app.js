@@ -80,9 +80,11 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-// Start server
-app.listen(port, async () => {
-  await initializeSubjects();
-  console.log(`\n🚀 Server running on http://localhost:${port}`);
-  console.log(`📚 SmartTutor Platform Ready\n`);
-});
+//set server
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server is running on localhost:${port}`);
+  });
+}
+
+module.exports = app;
