@@ -37,7 +37,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Initialize subjects in database
-const Subject = require('./models/Subject');
+const Subject = require('./Models/Subject');
 async function initializeSubjects() {
   try {
     const count = await Subject.countDocuments();
