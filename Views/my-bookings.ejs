@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Bookings | SmartTutor</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/styles.css"/>
+  <style>
+    .badge-green { background: #D1FAE5; color: #065F46; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
+    .modal-content { background: var(--white); max-width: 500px; width: 90%; border-radius: var(--radius-lg); padding: 24px; }
+    .stars { display: flex; gap: 10px; font-size: 32px; margin: 10px 0; cursor: pointer; }
+    .star { color: var(--gray-400); transition: all 0.15s; }
+    .star:hover, .star.active { color: #FBBF24; }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">🎓</div><div class="brand"><span class="brand-name">SmartTutor</span><span class="brand-sub">Belgium Campus iTversity</span></div></div>
+    <nav class="sidebar-nav">
+      <% if (user.role === 'student') { %>
+        <a href="/student-dashboard" class="nav-item">📊 Dashboard</a>
+        <a href="/my-bookings" class="nav-item active">📅 My Bookings</a>
+        <a href="/book-session" class="nav-item">🔍 Find a Tutor</a>
+        <a href="/notifications" class="nav-item">🔔 Notifications</a>
+        <a href="/profile-settings" class="nav-item">👤 Profile</a>
+      <% } else { %>
+        <a href="/tutor-dashboard" class="nav-item">📅 My Schedule</a>
+        <a href="/student-requests" class="nav-item">📋 Student Requests</a>
+        <a href="/my-bookings" class="nav-item active">📊 Sessions</a>
+        <a href="/profile-settings" class="nav-item">👤 Profile</a>
+      <% } %>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar"><%= user.name.charAt(0) %><%= user.name.split(' ')[1]?.charAt(0) || '' %></div>
+      <div><div class="user-name"><%= user.name %></div><div class="user-role"><%= user.role === 'student' ? 'Student' : 'Tutor' %></div></div>
+      <a href="/logout" class="logout-btn" style="margin-left: auto; color: var(--gray-400);">🚪 Logout</a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left"><h1>My Bookings</h1><p>All your tutoring sessions</p></div>
+      <div class="topbar-right"><% if (user.role === 'student') { %><a href="/book-session" class="btn btn-primary btn-sm">+ New Booking</a><% } %><a href="/notifications" class="icon-btn">🔔</a><a href="/profile-settings" class="user-avatar"><%= user.name.charAt(0) %></a><a href="/logout" class="btn btn-ghost btn-sm">Logout</a></div>
+    </header>
+
+    <div class="page-content">
+      <div class="booking-list">
+        <% if (bookings.length === 0) { %>
+          <div class="card" style="text-align:center; padding:40px;"><p>No bookings yet. <% if (user.role === 'student') { %><a href="/book-session">Book a session</a><% } else { %>Check student requests<% } %></p></div>
+        <% } else { %>
+          <% bookings.forEach(booking => { const hasReview = reviewedBookingIds.has(booking._id.toString()); %>
+            <div class="booking-item">
+              <div class="booking-info"><h4><%= booking.subject.name %> - <%= booking.subject.code %></h4><div class="booking-meta"><% if (user.role === 'student') { %><span>👨‍🏫 <%= booking.tutor.name %></span><% } else { %><span>👨‍🎓 <%= booking.student.name %></span><% } %><span>📅 <%= new Date(booking.date).toDateString() %></span><span>⏰ <%= booking.startTime %> – <%= booking.endTime %></span><span>⏱ <%= booking.duration %> hr(s)</span><span><%= booking.location === 'online' ? '💻 Online' : '📍 On-campus' %></span></div><% if (booking.notes) { %><div class="booking-meta">📝 <%= booking.notes %></div><% } %></div>
+              <div class="booking-actions">
+                <% if (booking.status === 'confirmed') { %><span class="badge badge-turquoise">✓ Confirmed</span><% if (user.role === 'student') { %><form method="POST" action="/api/bookings/<%= booking._id %>?_method=DELETE" onsubmit="return confirm('Cancel this booking?')"><button type="submit" class="btn btn-outline-pink btn-sm">Cancel</button></form><% } %>
+                <% } else if (booking.status === 'pending') { %><span class="badge badge-pink">⏳ Pending</span><% if (user.role === 'student') { %><form method="POST" action="/api/bookings/<%= booking._id %>?_method=DELETE" onsubmit="return confirm('Cancel this request?')"><button type="submit" class="btn btn-outline-pink btn-sm">Cancel</button></form><% } %>
+                <% } else if (booking.status === 'completed') { %><span class="badge badge-green">✅ Completed</span><% if (user.role === 'student' && !hasReview) { %><button class="btn btn-outline-turquoise btn-sm" onclick='openReviewModal("<%= booking._id %>", "<%= booking.tutor._id %>", "<%= booking.subject.name %>", "<%= booking.tutor.name %>")'>⭐ Leave Review</button><% } else if (user.role === 'student' && hasReview) { %><span class="badge badge-gray">⭐ Reviewed</span><% } %>
+                <% } else { %><span class="badge badge-gray">❌ Cancelled</span><% } %>
+              </div>
+            </div>
+          <% }) %>
+        <% } %>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="reviewModal" class="modal"><div class="modal-content"><h3 id="reviewModalTitle">Rate Your Session</h3><form id="reviewForm" method="POST" action="/api/reviews"><input type="hidden" name="bookingId" id="reviewBookingId"><input type="hidden" name="tutorId" id="reviewTutorId"><div class="form-group"><label>Rating</label><div class="stars"><span class="star" data-rating="1">☆</span><span class="star" data-rating="2">☆</span><span class="star" data-rating="3">☆</span><span class="star" data-rating="4">☆</span><span class="star" data-rating="5">☆</span></div><input type="hidden" name="rating" id="ratingInput" required></div><div class="form-group"><label>Your Review</label><textarea class="form-input" name="comment" rows="4" placeholder="Share your experience..." required></textarea></div><div class="form-actions"><button type="button" class="btn btn-ghost" onclick="closeReviewModal()">Cancel</button><button type="submit" class="btn btn-primary">Submit Review</button></div></form></div></div>
+
+<script>
+  let currentRating = 0;
+  function openReviewModal(bookingId, tutorId, subjectName, tutorName) {
+    document.getElementById('reviewBookingId').value = bookingId;
+    document.getElementById('reviewTutorId').value = tutorId;
+    document.getElementById('reviewModalTitle').innerHTML = `Rate ${subjectName} with ${tutorName}`;
+    document.getElementById('reviewModal').style.display = 'flex';
+    currentRating = 0; document.getElementById('ratingInput').value = '';
+    document.querySelectorAll('.star').forEach(star => { star.innerHTML = '☆'; star.classList.remove('active'); });
+    document.querySelector('#reviewForm textarea').value = '';
+  }
+  function closeReviewModal() { document.getElementById('reviewModal').style.display = 'none'; }
+  document.querySelectorAll('.star').forEach(star => {
+    star.addEventListener('click', function() { currentRating = parseInt(this.dataset.rating); document.getElementById('ratingInput').value = currentRating; document.querySelectorAll('.star').forEach((s, i) => { if (i < currentRating) { s.innerHTML = '★'; s.classList.add('active'); } else { s.innerHTML = '☆'; s.classList.remove('active'); } }); });
+    star.addEventListener('mouseenter', function() { const rating = parseInt(this.dataset.rating); document.querySelectorAll('.star').forEach((s, i) => { s.innerHTML = i < rating ? '★' : '☆'; }); });
+    star.addEventListener('mouseleave', function() { document.querySelectorAll('.star').forEach((s, i) => { s.innerHTML = i < currentRating ? '★' : '☆'; }); });
+  });
+  window.onclick = function(event) { const modal = document.getElementById('reviewModal'); if (event.target === modal) closeReviewModal(); }
+</script>
+</body>
+</html>

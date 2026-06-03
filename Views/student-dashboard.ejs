@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard | SmartTutor</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/styles.css"/>
+  <style>
+    .ml-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: var(--radius-lg); padding: 20px; margin-top: 20px; color: white; }
+    .ml-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 15px; }
+    .ml-stat { background: rgba(255,255,255,0.15); border-radius: 10px; padding: 12px; text-align: center; }
+    .ml-stat-value { font-size: 28px; font-weight: bold; }
+    .ml-stat-label { font-size: 11px; opacity: 0.9; margin-top: 5px; }
+    .recommendation-box { background: rgba(255,255,255,0.1); border-radius: 10px; padding: 12px; margin-top: 15px; }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🎓</div>
+      <div class="brand">
+        <span class="brand-name">SmartTutor</span>
+        <span class="brand-sub">Belgium Campus iTversity</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/student-dashboard" class="nav-item active">📊 Dashboard</a>
+      <a href="/my-bookings" class="nav-item">📅 My Bookings</a>
+      <a href="/book-session" class="nav-item">🔍 Find a Tutor</a>
+      <a href="/notifications" class="nav-item">🔔 Notifications</a>
+      <a href="/profile-settings" class="nav-item">👤 Profile</a>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar"><%= user.name.charAt(0) %><%= user.name.split(' ')[1]?.charAt(0) || '' %></div>
+      <div>
+        <div class="user-name"><%= user.name %></div>
+        <div class="user-role">Student</div>
+      </div>
+      <a href="/logout" class="logout-btn" style="margin-left: auto; color: var(--gray-400);">🚪 Logout</a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1>Good morning, <%= user.name.split(' ')[0] %>! 👋</h1>
+        <p>Ready for your studies today? You have <%= stats.upcomingSessions %> sessions this week.</p>
+      </div>
+      <div class="topbar-right">
+        <a href="/notifications" class="icon-btn">🔔</a>
+        <a href="/profile-settings" class="user-avatar" style="text-decoration:none;"><%= user.name.charAt(0) %><%= user.name.split(' ')[1]?.charAt(0) || '' %></a>
+        <a href="/logout" class="btn btn-ghost btn-sm">Logout</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="stat-cards">
+        <div class="stat-card"><div><div class="stat-label">Total Sessions</div><div class="stat-value"><%= stats.totalSessions %></div></div><div class="stat-icon">📚</div></div>
+        <div class="stat-card"><div><div class="stat-label">Upcoming Sessions</div><div class="stat-value"><%= stats.upcomingSessions %></div></div><div class="stat-icon">📅</div></div>
+        <div class="stat-card"><div><div class="stat-label">Completed</div><div class="stat-value"><%= stats.completedSessions %></div></div><div class="stat-icon">✅</div></div>
+      </div>
+
+      <div id="ml-insights-container">
+        <div class="ml-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div><h3>🤖 AI Learning Insights</h3><p style="opacity: 0.9; font-size: 13px;">Personalized recommendations based on your learning pattern</p></div>
+            <div style="font-size: 40px;">📊</div>
+          </div>
+          <div id="ml-insights-content"><div style="text-align: center; padding: 20px;">Loading...</div></div>
+        </div>
+      </div>
+
+      <div class="section-header"><span class="section-title">Upcoming Bookings</span><a href="/my-bookings" class="link-turquoise">View All</a></div>
+      <div class="booking-list">
+        <% if (bookings.length === 0) { %>
+          <div class="card" style="text-align:center; padding:40px;"><p>No upcoming bookings. <a href="/book-session">Book a session</a> to get started!</p></div>
+        <% } else { %>
+          <% bookings.forEach(booking => { %>
+            <div class="booking-item">
+              <div class="booking-info"><h4><%= booking.subject.name %> with <%= booking.tutor.name %></h4><div class="booking-meta"><span>📅 <%= new Date(booking.date).toDateString() %> · <%= booking.startTime %>–<%= booking.endTime %></span><span><%= booking.location === 'online' ? '💻 Online' : '📍 On-campus' %></span></div></div>
+              <button class="btn btn-primary btn-sm" onclick="location.href='/my-bookings'">View</button>
+            </div>
+          <% }) %>
+        <% } %>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  fetch(`/api/ml-insights/<%= user.id %>`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.role === 'student') {
+        const insights = data.insights;
+        const successColor = insights.successScore >= 70 ? '#10B981' : (insights.successScore >= 50 ? '#FBBF24' : '#EF4444');
+        document.getElementById('ml-insights-content').innerHTML = `
+          <div class="ml-grid">
+            <div class="ml-stat"><div class="ml-stat-value" style="color: ${successColor};">${insights.successScore}%</div><div class="ml-stat-label">Success Score</div></div>
+            <div class="ml-stat"><div class="ml-stat-value">${insights.attendanceRate}%</div><div class="ml-stat-label">Attendance Rate</div></div>
+            <div class="ml-stat"><div class="ml-stat-value">${insights.consistencyScore}%</div><div class="ml-stat-label">Consistency Score</div></div>
+            <div class="ml-stat"><div class="ml-stat-value">${insights.completedSessions}</div><div class="ml-stat-label">Completed</div></div>
+          </div>
+          <div class="recommendation-box"><strong>💡 Recommendation:</strong> ${insights.recommendation}</div>
+        `;
+      }
+    }).catch(() => { document.getElementById('ml-insights-content').innerHTML = '<div style="text-align: center; padding: 20px;">Unable to load insights.</div>'; });
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book a Session | SmartTutor</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/styles.css"/>
+  <style>
+    .time-slots-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px; }
+    .time-slot { padding: 8px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); background: var(--white); cursor: pointer; text-align: center; font-size: 13px; transition: all 0.15s; }
+    .time-slot:hover:not(.disabled):not(.past) { border-color: var(--turquoise); background: var(--turquoise-bg); }
+    .time-slot.selected { border-color: var(--turquoise); background: var(--turquoise); color: white; }
+    .time-slot.disabled, .time-slot.past { background: var(--gray-100); color: var(--gray-400); cursor: not-allowed; text-decoration: line-through; opacity: 0.6; }
+    .duration-buttons { display: flex; gap: 10px; margin-top: 8px; }
+    .duration-btn { flex: 1; padding: 10px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); background: var(--white); cursor: pointer; text-align: center; transition: all 0.15s; }
+    .duration-btn:hover { border-color: var(--turquoise); background: var(--turquoise-bg); }
+    .duration-btn.selected { border-color: var(--turquoise); background: var(--turquoise); color: white; }
+    .alert { padding: 12px; border-radius: var(--radius-sm); margin-bottom: 16px; }
+    .alert-error { background: #FEE2E2; color: #DC2626; }
+    .alert-success { background: #D1FAE5; color: #065F46; }
+    .ai-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; color: white; }
+    .recommendation-item { background: rgba(255,255,255,0.15); border-radius: 10px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.15s; }
+    .recommendation-item:hover { background: rgba(255,255,255,0.25); transform: translateX(5px); }
+    .rec-score-value { font-size: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">🎓</div><div class="brand"><span class="brand-name">SmartTutor</span><span class="brand-sub">Belgium Campus iTversity</span></div></div>
+    <nav class="sidebar-nav">
+      <a href="/student-dashboard" class="nav-item">📊 Dashboard</a>
+      <a href="/my-bookings" class="nav-item">📅 My Bookings</a>
+      <a href="/book-session" class="nav-item active">🔍 Find a Tutor</a>
+      <a href="/notifications" class="nav-item">🔔 Notifications</a>
+      <a href="/profile-settings" class="nav-item">👤 Profile</a>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar"><%= user.name.charAt(0) %><%= user.name.split(' ')[1]?.charAt(0) || '' %></div>
+      <div><div class="user-name"><%= user.name %></div><div class="user-role">Student</div></div>
+      <a href="/logout" class="logout-btn" style="margin-left: auto; color: var(--gray-400);">🚪 Logout</a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left"><h1>Book a Tutoring Session</h1><p>Select a module, tutor, and available time slot</p></div>
+      <div class="topbar-right"><a href="/notifications" class="icon-btn">🔔</a><a href="/profile-settings" class="user-avatar"><%= user.name.charAt(0) %></a><a href="/logout" class="btn btn-ghost btn-sm">Logout</a></div>
+    </header>
+
+    <div class="page-content">
+      <% if (error) { %><div class="alert alert-error"><%= error %></div><% } %>
+      
+      <div id="ai-recommendations" style="display: none;" class="ai-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <div><h3>🤖 AI Recommended Tutors</h3><p style="opacity: 0.9; font-size: 13px;">Based on your learning history</p></div>
+          <div style="font-size: 30px;">⭐</div>
+        </div>
+        <div id="recommendation-list"></div>
+      </div>
+      
+      <div class="card">
+        <form method="POST" action="/api/bookings">
+          <div class="form-group"><label class="form-label">Select Module</label><select class="form-input" name="subjectId" id="subjectSelect" required><option value="">Choose a module...</option><% subjects.forEach(subject => { %><option value="<%= subject._id %>" <%= selectedSubjectId === subject._id.toString() ? 'selected' : '' %>><%= subject.code %> - <%= subject.name %></option><% }); %></select></div>
+          <div class="form-group"><label class="form-label">Select Tutor</label><select class="form-input" name="tutorId" id="tutorSelect" required><option value="">First select a module...</option><% if (tutors && tutors.length > 0) { %><% tutors.forEach(tutor => { %><option value="<%= tutor._id %>"><%= tutor.name %> (⭐ <%= tutor.rating || 0 %>)</option><% }); %><% } %></select></div>
+          <div class="form-group"><label class="form-label">Select Date</label><input class="form-input" type="date" name="date" id="dateSelect" required min="<%= new Date().toISOString().split('T')[0] %>"></div>
+          <div class="form-group"><label class="form-label">Select Duration</label><div class="duration-buttons"><% durations.forEach(duration => { %><button type="button" class="duration-btn" data-duration="<%= duration.value %>"><%= duration.label %></button><% }); %></div><input type="hidden" name="duration" id="durationInput" required></div>
+          <div class="form-group"><label class="form-label">Select Start Time</label><div class="time-slots-grid" id="timeSlotsGrid"><div class="time-slot disabled">Select tutor, date, and duration first</div></div><input type="hidden" name="startTime" id="startTimeInput" required></div>
+          <div class="form-group"><label class="form-label">Location</label><select class="form-input" name="location"><option value="online">💻 Online (MS Teams)</option><option value="oncampus">📍 On-campus</option></select></div>
+          <div class="form-group"><label class="form-label">Additional Notes</label><textarea class="form-input" name="notes" rows="3" placeholder="What do you need help with?"></textarea></div>
+          <div class="form-actions"><a href="/student-dashboard" class="btn btn-ghost">Cancel</a><button type="submit" class="btn btn-primary">Submit Booking Request</button></div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  const subjectSelect = document.getElementById('subjectSelect'), tutorSelect = document.getElementById('tutorSelect'), dateSelect = document.getElementById('dateSelect'), timeSlotsGrid = document.getElementById('timeSlotsGrid'), startTimeInput = document.getElementById('startTimeInput'), durationInput = document.getElementById('durationInput');
+  let selectedDuration = null, selectedTimeSlot = null;
+  const today = new Date().toISOString().split('T')[0];
+  dateSelect.min = today;
+  
+  function isPastTimeSlot(timeSlot, selectedDate) { const now = new Date(); const slotDate = new Date(selectedDate); const [hours, minutes] = timeSlot.split(':').map(Number); slotDate.setHours(hours, minutes, 0, 0); return slotDate < now; }
+  
+  async function loadAIRecommendations(subjectId) {
+    if (!subjectId) { document.getElementById('ai-recommendations').style.display = 'none'; return; }
+    try {
+      const response = await fetch(`/api/recommend-tutors/<%= user.id %>/${subjectId}`);
+      const data = await response.json();
+      if (data.recommendations && data.recommendations.length > 0) {
+        document.getElementById('ai-recommendations').style.display = 'block';
+        document.getElementById('recommendation-list').innerHTML = data.recommendations.slice(0, 3).map(rec => `<div class="recommendation-item" onclick="selectRecommendedTutor('${rec.tutor.id}')"><div><strong>${rec.tutor.name}</strong><div style="font-size: 12px;">⭐ ${rec.tutor.rating} · ${rec.tutor.totalSessions || 0} sessions</div><div style="font-size: 11px; opacity: 0.85;">${rec.reason}</div></div><div class="rec-score"><div class="rec-score-value">${rec.score}%</div><div>match</div></div></div>`).join('');
+      } else { document.getElementById('ai-recommendations').style.display = 'none'; }
+    } catch(err) { document.getElementById('ai-recommendations').style.display = 'none'; }
+  }
+  
+  function selectRecommendedTutor(tutorId) { const tutorOption = Array.from(tutorSelect.options).find(opt => opt.value === tutorId); if (tutorOption) { tutorSelect.value = tutorId; tutorSelect.dispatchEvent(new Event('change')); } }
+  
+  subjectSelect.addEventListener('change', async (e) => {
+    if (e.target.value) {
+      await loadAIRecommendations(e.target.value);
+      const response = await fetch(`/api/tutors/by-subject/${e.target.value}`);
+      const tutors = await response.json();
+      tutorSelect.innerHTML = '<option value="">Select a tutor...</option>';
+      tutors.forEach(tutor => { tutorSelect.innerHTML += `<option value="${tutor._id}">${tutor.name} (⭐ ${tutor.rating || 0})</option>`; });
+    } else { tutorSelect.innerHTML = '<option value="">First select a module...</option>'; document.getElementById('ai-recommendations').style.display = 'none'; }
+    timeSlotsGrid.innerHTML = '<div class="time-slot disabled">Select a tutor and date first</div>';
+  });
+  
+  async function loadTimeSlots() {
+    const tutorId = tutorSelect.value, date = dateSelect.value;
+    if (!tutorId || !date || !selectedDuration) { timeSlotsGrid.innerHTML = '<div class="time-slot disabled">Select tutor, date, and duration first</div>'; return; }
+    const response = await fetch(`/api/available-slots/${tutorId}/${date}`);
+    let availableSlots = await response.json();
+    const todayStr = new Date().toISOString().split('T')[0];
+    if (date === todayStr) availableSlots = availableSlots.filter(slot => !isPastTimeSlot(slot, date));
+    if (availableSlots.length === 0) { timeSlotsGrid.innerHTML = '<div class="time-slot disabled">No available time slots</div>'; return; }
+    timeSlotsGrid.innerHTML = '';
+    availableSlots.forEach(slot => {
+      const slotDiv = document.createElement('div'); slotDiv.className = 'time-slot'; slotDiv.textContent = slot;
+      if (date === todayStr && isPastTimeSlot(slot, date)) slotDiv.classList.add('past');
+      else slotDiv.onclick = () => { document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected')); slotDiv.classList.add('selected'); selectedTimeSlot = slot; startTimeInput.value = slot; };
+      timeSlotsGrid.appendChild(slotDiv);
+    });
+  }
+  
+  document.querySelectorAll('.duration-btn').forEach(btn => { btn.onclick = () => { document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); selectedDuration = btn.dataset.duration; durationInput.value = selectedDuration; if (tutorSelect.value && dateSelect.value) loadTimeSlots(); }; });
+  tutorSelect.addEventListener('change', () => { if (tutorSelect.value && dateSelect.value && selectedDuration) loadTimeSlots(); });
+  dateSelect.addEventListener('change', () => { if (tutorSelect.value && dateSelect.value && selectedDuration) loadTimeSlots(); });
+  if (subjectSelect.value) subjectSelect.dispatchEvent(new Event('change'));
+</script>
+</body>
+</html>

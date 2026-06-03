@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | SmartTutor</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/styles.css"/>
+  <style>
+    .login-body { background: var(--gray-50); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin:0; }
+    .login-wrapper { width: 100%; max-width: 420px; padding: 20px; }
+    .login-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--gray-200); padding: 36px 32px; box-shadow: var(--shadow-md); }
+    .login-logo { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 22px; }
+    .login-logo .logo-icon { width: 44px; height: 44px; background: var(--turquoise); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+    .login-title { font-size: 20px; font-weight: 600; text-align: center; margin-bottom: 4px; }
+    .login-sub { font-size: 13px; color: var(--gray-400); text-align: center; margin-bottom: 20px; }
+    .role-tabs { display: flex; gap: 4px; background: var(--gray-100); border-radius: var(--radius); padding: 4px; margin-bottom: 20px; }
+    .role-tab { flex: 1; padding: 7px; border: none; border-radius: var(--radius-sm); background: transparent; font-size: 13px; font-weight: 500; color: var(--gray-600); cursor: pointer; transition: all 0.15s; font-family: var(--font); }
+    .role-tab.active { background: var(--white); color: var(--turquoise-dark); box-shadow: var(--shadow); }
+    .error-message { background: #FEE2E2; color: #DC2626; padding: 10px; border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 13px; text-align: center; }
+  </style>
+</head>
+<body class="login-body">
+<div class="login-wrapper">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="logo-icon">🎓</div>
+      <div>
+        <div style="font-size:18px;font-weight:700;">SmartTutor</div>
+        <div style="font-size:11px;color:var(--gray-400);">Belgium Campus iTversity</div>
+      </div>
+    </div>
+    <h1 class="login-title">Welcome back</h1>
+    <p class="login-sub">Sign in to your SmartTutor account to continue</p>
+    
+    <% if (error) { %>
+      <div class="error-message"><%= error %></div>
+    <% } %>
+    
+    <form method="POST" action="/login">
+      <div class="role-tabs">
+        <button type="button" class="role-tab active" onclick="setRole('student')">Student</button>
+        <button type="button" class="role-tab" onclick="setRole('tutor')">Tutor</button>
+        <button type="button" class="role-tab" onclick="setRole('admin')">Admin</button>
+      </div>
+      <input type="hidden" name="role" id="roleInput" value="student">
+      
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-input" type="email" name="email" required placeholder="name@belgiumcampus.ac.za"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" type="password" name="password" required placeholder="Enter your password"/>
+      </div>
+      <div class="login-forgot">
+        <a href="#">Forgot password?</a>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%; height:42px;">Sign In</button>
+    </form>
+    
+    <div class="login-register" style="text-align:center; margin-top:16px;">
+      New student? <a href="/register" style="color:var(--pink);">Register here</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setRole(role) {
+    document.querySelectorAll('.role-tab').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('roleInput').value = role;
+  }
+</script>
+</body>
+</html>
